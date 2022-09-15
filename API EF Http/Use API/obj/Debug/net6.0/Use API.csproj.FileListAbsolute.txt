@@ -1,0 +1,26 @@
+C:\Users\trung duc\Documents\Semester 8\PRN231\Code\API EF Http\Use API\bin\Debug\net6.0\appsettings.Development.json
+C:\Users\trung duc\Documents\Semester 8\PRN231\Code\API EF Http\Use API\bin\Debug\net6.0\appsettings.json
+C:\Users\trung duc\Documents\Semester 8\PRN231\Code\API EF Http\Use API\bin\Debug\net6.0\Use API.staticwebassets.runtime.json
+C:\Users\trung duc\Documents\Semester 8\PRN231\Code\API EF Http\Use API\bin\Debug\net6.0\Use API.exe
+C:\Users\trung duc\Documents\Semester 8\PRN231\Code\API EF Http\Use API\bin\Debug\net6.0\Use API.deps.json
+C:\Users\trung duc\Documents\Semester 8\PRN231\Code\API EF Http\Use API\bin\Debug\net6.0\Use API.runtimeconfig.json
+C:\Users\trung duc\Documents\Semester 8\PRN231\Code\API EF Http\Use API\bin\Debug\net6.0\Use API.dll
+C:\Users\trung duc\Documents\Semester 8\PRN231\Code\API EF Http\Use API\bin\Debug\net6.0\Use API.pdb
+C:\Users\trung duc\Documents\Semester 8\PRN231\Code\API EF Http\Use API\obj\Debug\net6.0\Use API.csproj.AssemblyReference.cache
+C:\Users\trung duc\Documents\Semester 8\PRN231\Code\API EF Http\Use API\obj\Debug\net6.0\Use API.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\trung duc\Documents\Semester 8\PRN231\Code\API EF Http\Use API\obj\Debug\net6.0\Use API.AssemblyInfoInputs.cache
+C:\Users\trung duc\Documents\Semester 8\PRN231\Code\API EF Http\Use API\obj\Debug\net6.0\Use API.AssemblyInfo.cs
+C:\Users\trung duc\Documents\Semester 8\PRN231\Code\API EF Http\Use API\obj\Debug\net6.0\Use API.csproj.CoreCompileInputs.cache
+C:\Users\trung duc\Documents\Semester 8\PRN231\Code\API EF Http\Use API\obj\Debug\net6.0\Use API.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\trung duc\Documents\Semester 8\PRN231\Code\API EF Http\Use API\obj\Debug\net6.0\Use API.RazorAssemblyInfo.cache
+C:\Users\trung duc\Documents\Semester 8\PRN231\Code\API EF Http\Use API\obj\Debug\net6.0\Use API.RazorAssemblyInfo.cs
+C:\Users\trung duc\Documents\Semester 8\PRN231\Code\API EF Http\Use API\obj\Debug\net6.0\staticwebassets.build.json
+C:\Users\trung duc\Documents\Semester 8\PRN231\Code\API EF Http\Use API\obj\Debug\net6.0\staticwebassets.development.json
+C:\Users\trung duc\Documents\Semester 8\PRN231\Code\API EF Http\Use API\obj\Debug\net6.0\scopedcss\Pages\Shared\_Layout.cshtml.rz.scp.css
+C:\Users\trung duc\Documents\Semester 8\PRN231\Code\API EF Http\Use API\obj\Debug\net6.0\scopedcss\bundle\Use API.styles.css
+C:\Users\trung duc\Documents\Semester 8\PRN231\Code\API EF Http\Use API\obj\Debug\net6.0\scopedcss\projectbundle\Use API.bundle.scp.css
+C:\Users\trung duc\Documents\Semester 8\PRN231\Code\API EF Http\Use API\obj\Debug\net6.0\Use API.dll
+C:\Users\trung duc\Documents\Semester 8\PRN231\Code\API EF Http\Use API\obj\Debug\net6.0\refint\Use API.dll
+C:\Users\trung duc\Documents\Semester 8\PRN231\Code\API EF Http\Use API\obj\Debug\net6.0\Use API.pdb
+C:\Users\trung duc\Documents\Semester 8\PRN231\Code\API EF Http\Use API\obj\Debug\net6.0\Use API.genruntimeconfig.cache
+C:\Users\trung duc\Documents\Semester 8\PRN231\Code\API EF Http\Use API\obj\Debug\net6.0\ref\Use API.dll
