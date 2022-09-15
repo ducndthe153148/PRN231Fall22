@@ -15,6 +15,10 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\trung duc\Documents\Semester 8\PRN231\Code\PRN231Fall22\API EF Http\Use API
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/Users/trung duc/Documents/Semester 8/PRN231/Code/PRN231Fall22/API EF Http/Use API/Pages/Employees/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRW1wbG95ZWVzXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/trung duc/Documents/Semester 8/PRN231/Code/PRN231Fall22/API EF Http/Use API/Pages/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 

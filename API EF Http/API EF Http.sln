@@ -5,7 +5,7 @@ VisualStudioVersion = 17.3.32825.248
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API EF Http", "API EF Http\API EF Http.csproj", "{FEA63797-FB34-40F1-9B0B-1AF345465D4E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Use API", "Use API\Use API.csproj", "{F46ED523-B8A8-4F80-9362-022D4883FE55}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Use API", "Use API\Use API.csproj", "{F46ED523-B8A8-4F80-9362-022D4883FE55}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

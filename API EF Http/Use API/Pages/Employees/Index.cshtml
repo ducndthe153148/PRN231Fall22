@@ -1,0 +1,48 @@
+﻿@page
+@model Use_API.Pages.Employees.IndexModel
+@{
+
+}
+
+
+<div class="text-center">
+    <div class="container row p-0 m-0">
+        <div class="col-9">
+            <h2 class="text-info">Genres List</h2>
+        </div>
+
+        <div class="col-12 border p-3 mt-3">
+
+            @if (Model.Employees.Count() > 0)
+            {
+                <table class="table table-striped border">
+                    <tr class="table-secondary">
+                        <th>
+                            <label asp-for="Employees.FirstOrDefault().FirstName"></label>
+                        </th>
+                        <th>
+                            <label asp-for="Employees.FirstOrDefault().LastName"></label>
+                        </th>
+                    </tr>
+                    @foreach (var item in Model.Employees)
+                    {
+                        
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(m => item.FirstName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.LastName)
+                            </td>
+                        </tr>
+                    }
+                </table>
+            }
+            else
+            {
+                <p>No Genres to show</p>
+            }
+
+        </div>
+    </div>
+</div>
