@@ -16,7 +16,8 @@
             @if (Model.Employees.Count() > 0)
             {
                 <table class="table table-striped border">
-                    <tr class="table-secondary">
+                    <thead>
+                        <tr class="table-secondary">
                         <th>
                             <label asp-for="Employees.FirstOrDefault().FirstName"></label>
                         </th>
@@ -45,49 +46,66 @@
                             <label>Aciton</label>
                         </th>
                     </tr>
-                    @foreach (var item in Model.Employees)
-                    {
-                        
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(m => item.FirstName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(m => item.LastName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(m => item.DepartmentId)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(m => item.Title)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(m => item.TitleOfCourtesy)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(m => item.BirthDate)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(m => item.HireDate)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(m => item.Address)
-                            </td>
-                            <td>
-                                <form method="post">
-                                    <button asp-page-handler="Delete" asp-route-id="@item.EmployeeId" onclick="return confirm('Delete this film will delete all related comment. Are you sure?')" class="btn btn-danger btn-sm">Delete</button>
-                                    @*<a asp-page="Edit" class="btn btn-success btn-sm text-white" data-toggle="modal" data-target="@itemName">Edit</a>*@
-                                </form>
-                            </td>
-                        </tr>
-                    }
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Employees)
+                        {
+                            var itemName = "#edit" + item.EmployeeId;
+                            var itemName1 = "edit" + item.EmployeeId;
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(m => item.FirstName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(m => item.LastName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(m => item.DepartmentId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(m => item.Title)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(m => item.TitleOfCourtesy)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(m => item.BirthDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(m => item.HireDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(m => item.Address)
+                                </td>
+                                <td>
+                                    <form method="post">
+                                        <button asp-page-handler="Delete" asp-route-id="@item.EmployeeId" onclick="return confirm('Delete this film will delete all related comment. Are you sure?')" class="btn btn-danger btn-sm">Delete</button>
+                                        <a asp-page="./Edit" asp-route-id="@item.EmployeeId">Edit</a>
+                                    </form>
+                                </td>
+                            </tr>
+
+                            @*<div id="@itemName1" class="modal fade" role="dialog">
+                                <div class="modal-dialog">
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-body">
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>*@
+                        }
+                    </tbody>
                 </table>
             }
             else
             {
                 <p>No Genres to show</p>
             }
-
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                Launch demo modal
+            </button>
         </div>
     </div>
 </div>

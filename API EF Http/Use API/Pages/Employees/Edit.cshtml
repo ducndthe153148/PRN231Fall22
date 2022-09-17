@@ -1,0 +1,89 @@
+﻿@page
+@model Use_API.Pages.Employees.EditModel
+@{
+}
+<h1>Edit</h1>
+
+<h4>Employee</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Employee.EmployeeId" />
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Employee.LastName"></label>
+                </div>
+                <div class="col-6">
+                    <input asp-for="Employee.LastName" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Employee.FirstName"></label>
+                </div>
+                <div class="col-6">
+                    <input asp-for="Employee.FirstName" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Employee.DepartmentId"></label>
+                </div>
+                <div class="col-6">
+                    <input asp-for="Employee.DepartmentId" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Employee.Title"></label>
+                </div>
+                <div class="col-6">
+                    <input asp-for="Employee.Title" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Employee.TitleOfCourtesy"></label>
+                </div>
+                <div class="col-6">
+                    <input asp-for="Employee.TitleOfCourtesy" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Employee.BirthDate"></label>
+                </div>
+                <div class="col-6">
+                    <input asp-for="Employee.BirthDate" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Employee.HireDate"></label>
+                </div>
+                <div class="col-6">
+                    <input asp-for="Employee.HireDate" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Employee.Address"></label>
+                </div>
+                <div class="col-6">
+                    <input asp-for="Employee.Address" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>

@@ -13,6 +13,9 @@ namespace Use_API.Pages.Employees
         private PRN231DBContext _context = new PRN231DBContext();
         private readonly HttpClient client = null;
         private string EmployeeApiUrl = "";
+
+        [BindProperty]
+        public Employee Employee { get; set; }
         public IndexModel()
         {
             client = new HttpClient();
@@ -33,7 +36,7 @@ namespace Use_API.Pages.Employees
         public async Task<IActionResult> OnPostDelete(int id)
         {
             // Delete from DB
-            HttpResponseMessage response = await client.DeleteAsync($"{EmployeeApiUrl}/{id}");
+            HttpResponseMessage response = await client.DeleteAsync($"{EmployeeApiUrl}{id}");
 
             // page with employee data
 
