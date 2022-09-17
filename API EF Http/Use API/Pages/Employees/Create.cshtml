@@ -1,0 +1,83 @@
+﻿@page
+@model Use_API.Pages.Employees.CreateModel
+@{
+}
+
+<br />
+<h2 class="text-info">Add new Employee</h2>
+<br />
+
+<div class="border container" style="padding: 30px;">
+    <form method="post" asp-page="/Employees/Create" enctype="multipart/form-data">
+        <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="Employee.LastName"></label>
+            </div>
+            <div class="col-6">
+                <input asp-for="Employee.LastName" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="Employee.FirstName"></label>
+            </div>
+            <div class="col-6">
+                <input asp-for="Employee.FirstName" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="Employee.DepartmentId"></label>
+            </div>
+            <div class="col-6">
+                <input asp-for="Employee.DepartmentId" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="Employee.Title"></label>
+            </div>
+            <div class="col-6">
+                <input asp-for="Employee.Title" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="Employee.TitleOfCourtesy"></label>
+            </div>
+            <div class="col-6">
+                <input asp-for="Employee.TitleOfCourtesy" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="Employee.BirthDate"></label>
+            </div>
+            <div class="col-6">
+                <input asp-for="Employee.BirthDate" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="Employee.HireDate"></label>
+            </div>
+            <div class="col-6">
+                <input asp-for="Employee.HireDate" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="Employee.Address"></label>
+            </div>
+            <div class="col-6">
+                <input asp-for="Employee.Address" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-3 offset-3">
+                <input type="submit" value="Create" class="btn btn-primary form-control" />
+            </div>
+        </div>
+    </form>
+</div>

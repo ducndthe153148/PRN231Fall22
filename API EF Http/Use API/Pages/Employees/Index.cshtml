@@ -23,6 +23,27 @@
                         <th>
                             <label asp-for="Employees.FirstOrDefault().LastName"></label>
                         </th>
+                        <th>
+                            <label>Department</label>
+                        </th>
+                        <th>
+                            <label asp-for="Employees.FirstOrDefault().Title"></label>
+                        </th>
+                        <th>
+                            <label asp-for="Employees.FirstOrDefault().TitleOfCourtesy"></label>
+                        </th>
+                        <th>
+                            <label asp-for="Employees.FirstOrDefault().BirthDate"></label>
+                        </th>
+                        <th>
+                            <label asp-for="Employees.FirstOrDefault().HireDate"></label>
+                        </th>
+                        <th>
+                            <label asp-for="Employees.FirstOrDefault().Address"></label>
+                        </th>
+                        <th>
+                            <label>Aciton</label>
+                        </th>
                     </tr>
                     @foreach (var item in Model.Employees)
                     {
@@ -33,6 +54,30 @@
                             </td>
                             <td>
                                 @Html.DisplayFor(m => item.LastName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.DepartmentId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.Title)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.TitleOfCourtesy)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.BirthDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.HireDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.Address)
+                            </td>
+                            <td>
+                                <form method="post">
+                                    <button asp-page-handler="Delete" asp-route-id="@item.EmployeeId" onclick="return confirm('Delete this film will delete all related comment. Are you sure?')" class="btn btn-danger btn-sm">Delete</button>
+                                    @*<a asp-page="Edit" class="btn btn-success btn-sm text-white" data-toggle="modal" data-target="@itemName">Edit</a>*@
+                                </form>
                             </td>
                         </tr>
                     }

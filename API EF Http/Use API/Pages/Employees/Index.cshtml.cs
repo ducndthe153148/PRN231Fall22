@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Net.Http.Headers;
 using System.Text.Json;
 using Use_API.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Use_API.Pages.Employees
 {
@@ -25,7 +26,25 @@ namespace Use_API.Pages.Employees
             string stringData = await response.Content.ReadAsStringAsync();
             var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true};
             Employees = JsonSerializer.Deserialize<List<Employee>>(stringData, options);
+            
             return Page();
+        }
+
+        public async Task<IActionResult> OnPostDelete(int id)
+        {
+            // Delete from DB
+            HttpResponseMessage response = await client.DeleteAsync($"{EmployeeApiUrl}/{id}");
+
+            // page with employee data
+
+            if (response.IsSuccessStatusCode)
+            {
+                return RedirectToPage("/Employees/Index");
+            }
+            else
+            {
+                return RedirectToPage("/Error");
+            }
         }
     }
 }
