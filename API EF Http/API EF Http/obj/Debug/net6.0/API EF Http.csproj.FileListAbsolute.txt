@@ -70,7 +70,6 @@ C:\Users\trung duc\Documents\Semester 8\PRN231\Code\PRN231Fall22\API EF Http\API
 C:\Users\trung duc\Documents\Semester 8\PRN231\Code\PRN231Fall22\API EF Http\API EF Http\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Relational.dll
 C:\Users\trung duc\Documents\Semester 8\PRN231\Code\PRN231Fall22\API EF Http\API EF Http\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.SqlServer.dll
 C:\Users\trung duc\Documents\Semester 8\PRN231\Code\PRN231Fall22\API EF Http\API EF Http\bin\Debug\net6.0\Microsoft.Extensions.Caching.Memory.dll
-C:\Users\trung duc\Documents\Semester 8\PRN231\Code\PRN231Fall22\API EF Http\API EF Http\bin\Debug\net6.0\Microsoft.Extensions.Configuration.dll
 C:\Users\trung duc\Documents\Semester 8\PRN231\Code\PRN231Fall22\API EF Http\API EF Http\bin\Debug\net6.0\Microsoft.Identity.Client.dll
 C:\Users\trung duc\Documents\Semester 8\PRN231\Code\PRN231Fall22\API EF Http\API EF Http\bin\Debug\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
 C:\Users\trung duc\Documents\Semester 8\PRN231\Code\PRN231Fall22\API EF Http\API EF Http\bin\Debug\net6.0\Microsoft.IdentityModel.Logging.dll
@@ -112,3 +111,5 @@ C:\Users\trung duc\Documents\Semester 8\PRN231\Code\PRN231Fall22\API EF Http\API
 C:\Users\trung duc\Documents\Semester 8\PRN231\Code\PRN231Fall22\API EF Http\API EF Http\obj\Debug\net6.0\API EF Http.pdb
 C:\Users\trung duc\Documents\Semester 8\PRN231\Code\PRN231Fall22\API EF Http\API EF Http\obj\Debug\net6.0\API EF Http.genruntimeconfig.cache
 C:\Users\trung duc\Documents\Semester 8\PRN231\Code\PRN231Fall22\API EF Http\API EF Http\obj\Debug\net6.0\ref\API EF Http.dll
+C:\Users\trung duc\Documents\Semester 8\PRN231\Code\PRN231Fall22\API EF Http\API EF Http\bin\Debug\net6.0\AutoMapper.dll
+C:\Users\trung duc\Documents\Semester 8\PRN231\Code\PRN231Fall22\API EF Http\API EF Http\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll

@@ -1,4 +1,6 @@
 ﻿using API_EF_Http.DataAccess;
+using API_EF_Http.DTO;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,21 +16,23 @@ namespace API_EF.Controllers
             this.dBContext = dBContext;
         }
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
-            var E = dBContext.Employees.ToList();
-            if(E.Count != 0)
-            {
-                return Ok(E);
-            } else
+            var E = dBContext.Employees.Include(d => d.Department).ToList();
+            if(E == null)
             {
                 return NoContent();
             }
-        }
+            var config = new MapperConfiguration(config => config.AddProfile(new MappingDTO()));
+            var mapper = config.CreateMapper();
+            List<EmployeeDTO> result = E.Select(e => mapper.Map<Employee, EmployeeDTO>(e)).ToList();
+            return Ok(result);
+        }   
         [HttpGet("[action]/{id}")]
         public IActionResult GetById([FromRoute]int id)
         {
-            var E = dBContext.Employees.Where(e => e.EmployeeId == id).FirstOrDefault();
+            var E = dBContext.Employees.Where(e => e.EmployeeId == id)
+                .FirstOrDefault();
             if (E != null)
             {
                 return Ok(E);
