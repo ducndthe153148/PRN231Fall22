@@ -7,8 +7,9 @@ namespace API_EF_Http.DTO
     {
         public MappingDTO()
         {
-            CreateMap<Employee, EmployeeDTO>();
-            CreateMap<Employee, EmployeeDTO>(); 
+            CreateMap<Employee, EmployeeDTO>().ReverseMap(); ;
+            CreateMap<Department, DepartmentDTO>();
+            //    .ForMember(de => de.DepartmentName, opt => opt.MapFrom(src => src.DepartmentNew)); 
         }
     }
 }

@@ -19,7 +19,6 @@ namespace API_EF_Http.DataAccess
         public DateTime? BirthDate { get; set; }
         public DateTime? HireDate { get; set; }
         public string Address { get; set; }
-
         public virtual Department Department { get; set; }
         public virtual ICollection<Order> Orders { get; set; }
     }

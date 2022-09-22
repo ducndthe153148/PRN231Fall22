@@ -11,14 +11,16 @@ namespace API_EF.Controllers
     public class EmployeeController : Controller
     {
         public PRN231DBContext dBContext;
-        public EmployeeController(PRN231DBContext dBContext)
+        public IMapper _mapper;
+        public EmployeeController(PRN231DBContext dBContext, IMapper mapper)
         {
             this.dBContext = dBContext;
+            _mapper = mapper;
         }
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var E = dBContext.Employees.Include(d => d.Department).ToList();
+            var E = await dBContext.Employees.Include(d => d.Department).ToListAsync();
             if(E == null)
             {
                 return NoContent();
@@ -29,70 +31,86 @@ namespace API_EF.Controllers
             return Ok(result);
         }   
         [HttpGet("[action]/{id}")]
-        public IActionResult GetById([FromRoute]int id)
+        public async Task<IActionResult> GetById([FromRoute]int id)
         {
-            var E = dBContext.Employees.Where(e => e.EmployeeId == id)
-                .FirstOrDefault();
-            if (E != null)
-            {
-                return Ok(E);
-            } else
+            var E = await dBContext.Employees.Where(e => e.EmployeeId == id)
+                .Include(d => d.Department)
+                .FirstOrDefaultAsync();
+            if (E == null)
             {
                 return BadRequest();
             }
+            var config = new MapperConfiguration(config => config.AddProfile(new MappingDTO()));
+            var mapper = config.CreateMapper();
+            EmployeeDTO result = _mapper.Map<Employee, EmployeeDTO>(E);
+            return Ok(result);
         }
 
         [HttpGet("[action]/{lname}")]
-        public IActionResult GetByName([FromRoute] string lname)
+        public async Task<IActionResult> GetByName([FromRoute] string lname)
         {
-            var E = dBContext.Employees.Where(e => e.LastName.Contains(lname)).FirstOrDefault();
+            var E = await dBContext.Employees.Where(e => e.LastName.Contains(lname))
+                .Include(d => d.Department)
+                .FirstOrDefaultAsync();
             if (E != null)
-            {
-                return Ok(E);
-            }
-            else
             {
                 return BadRequest();
             }
+            var config = new MapperConfiguration(config => config.AddProfile(new MappingDTO()));
+            var mapper = config.CreateMapper();
+            EmployeeDTO result = mapper.Map<Employee, EmployeeDTO>(E);
+            return Ok(result);
         }
 
         [HttpGet("[action]/{lname}/{fname}")]
-        public IActionResult GetByFLName([FromRoute] string lname, string fname)
+        public async Task<IActionResult> GetByFLName([FromRoute] string lname, string fname)
         {
-            var E = dBContext.Employees.Where(e => e.LastName.Contains(lname) && e.FirstName.Contains(fname)).ToList();
-            if (E.Count != 0)
-            {
-                return Ok(E);
-            }
-            else
+            var E = await dBContext.Employees.Where(e => e.LastName.Contains(lname) && e.FirstName.Contains(fname))
+                .Include(d => d.Department)
+                .ToListAsync();
+            if (E.Count == null)
             {
                 return BadRequest();
             }
+            var config = new MapperConfiguration(config => config.AddProfile(new MappingDTO()));
+            var mapper = config.CreateMapper();
+            List<EmployeeDTO> result = E.Select(e => mapper.Map<Employee, EmployeeDTO>(e)).ToList();
+            return Ok(result);
         }
 
         [HttpPost()]
-        public IActionResult Post(Employee E)
+        public async Task<IActionResult> Post(EmployeeDTO E)
         {
             if (ModelState.IsValid)
             {
-                dBContext.Add<Employee>(E);
-                dBContext.SaveChanges();
-                return CreatedAtAction("Get", new {id=E.EmployeeId}, E);
-            } else
+                var config = new MapperConfiguration(config => config.AddProfile(new MappingDTO()));
+                var mapper = config.CreateMapper();
+                var result = mapper.Map<Employee>(E);
+
+                await dBContext.AddAsync<Employee>(result);
+                await dBContext.SaveChangesAsync();
+                return CreatedAtAction("Get", new { id = E.EmployeeId }, E);
+            }
+            else
             {
                 return BadRequest(ModelState);
             }
         }
+
         [HttpPut()]
-        public IActionResult Put([FromBody]Employee E)
+        public async Task<IActionResult> Put([FromBody] EmployeeDTO E)
         {
-            var employee = dBContext.Employees.Where(e => e.EmployeeId == E.EmployeeId).AsNoTracking().FirstOrDefault();
+            var employee = await dBContext.Employees.Where(e => e.EmployeeId == E.EmployeeId).AsNoTracking().FirstOrDefaultAsync();
             if(employee != null)
             {
                 if (ModelState.IsValid)
                 {
-                    dBContext.Update(E);
-                    dBContext.SaveChanges();
+                    var config = new MapperConfiguration(config => config.AddProfile(new MappingDTO()));
+                    var mapper = config.CreateMapper();
+                    var result = mapper.Map<Employee>(E);
+
+                    dBContext.Update(result);
+                    dBContext.SaveChangesAsync();
                     return AcceptedAtAction("Put", new { id = E.EmployeeId }, E);
                 } else
                 {
@@ -106,10 +124,10 @@ namespace API_EF.Controllers
             
         }
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var E = dBContext.Employees.Where(e => e.EmployeeId == id).FirstOrDefault();
-            var O = dBContext.Orders.Where(e => e.EmployeeId == id).FirstOrDefault();
+            var E = await dBContext.Employees.Where(e => e.EmployeeId == id).FirstOrDefaultAsync();
+            var O = await dBContext.Orders.Where(e => e.EmployeeId == id).FirstOrDefaultAsync();
             bool check = false;
             if(O != null)
             {
@@ -121,7 +139,7 @@ namespace API_EF.Controllers
             } else
             {
                 dBContext.Remove<Employee>(E);
-                dBContext.SaveChanges();
+                await dBContext.SaveChangesAsync();
                 return Ok("Delete xong");
             }
             
