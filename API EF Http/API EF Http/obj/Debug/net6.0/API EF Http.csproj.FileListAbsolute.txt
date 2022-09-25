@@ -318,3 +318,9 @@ C:\Users\trung duc\Documents\Semester 8\PRN231\Code\PRN231Fall22\API EF Http\API
 C:\Users\trung duc\Documents\Semester 8\PRN231\Code\PRN231Fall22\API EF Http\API EF Http\bin\Debug\net6.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 C:\Users\trung duc\Documents\Semester 8\PRN231\Code\PRN231Fall22\API EF Http\API EF Http\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll
 C:\Users\trung duc\Documents\Semester 8\PRN231\Code\PRN231Fall22\API EF Http\API EF Http\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\trung duc\Documents\Semester 8\PRN231\Code\PRN231Fall22\API EF Http\API EF Http\bin\Debug\net6.0\Microsoft.AspNetCore.OData.dll
+C:\Users\trung duc\Documents\Semester 8\PRN231\Code\PRN231Fall22\API EF Http\API EF Http\bin\Debug\net6.0\Microsoft.OData.Core.dll
+C:\Users\trung duc\Documents\Semester 8\PRN231\Code\PRN231Fall22\API EF Http\API EF Http\bin\Debug\net6.0\Microsoft.OData.Edm.dll
+C:\Users\trung duc\Documents\Semester 8\PRN231\Code\PRN231Fall22\API EF Http\API EF Http\bin\Debug\net6.0\Microsoft.OData.ModelBuilder.dll
+C:\Users\trung duc\Documents\Semester 8\PRN231\Code\PRN231Fall22\API EF Http\API EF Http\bin\Debug\net6.0\Microsoft.Spatial.dll
+C:\Users\trung duc\Documents\Semester 8\PRN231\Code\PRN231Fall22\API EF Http\API EF Http\obj\Debug\net6.0\API EF Http.MvcApplicationPartsAssemblyInfo.cs
