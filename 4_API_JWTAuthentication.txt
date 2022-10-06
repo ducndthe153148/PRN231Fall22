@@ -1,0 +1,86 @@
+1. NuGet Packages:
+- Microsoft.AspNetCore.Authentication.JwtBearer
+- Microsoft.EntityFrameworkCore
+
+2. appsettings.json
+
+  "Jwt": {
+    "Key": "This is a secret key",
+    "Issuer": "JWTAuthenticationServer",
+    "Audience": "ClientApp",
+    "Subject": "JWTAccessToken"
+  }
+
+3. Program.cs
+- Add DBContext:
+	builder.Services.AddDbContext<PRN231DBContext>(opt => opt.UseSqlServer(
+    		builder.Configuration.GetConnectionString("prn231db")));
+
+- Add Authentication:
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opt =>
+{
+    opt.RequireHttpsMetadata = false;
+    opt.SaveToken = true;
+    opt.TokenValidationParameters = new TokenValidationParameters()
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+        ValidAudience = builder.Configuration["Jwt:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+    };
+});
+
+- Add methods to active Auth:
+app.UseAuthentication();
+app.UseAuthorization();
+
+4. Take Token (AccountController.cs)
+
+	[HttpPost("login")]
+        public async Task<IActionResult> Post(Account account)
+        {
+            if (account!=null && account.Email!=null && account.Password!=null)
+            {
+                var acc = await _context.Accounts.FirstOrDefaultAsync(x=>x.Email==account.Email && x.Password==account.Password);
+                if (acc != null)
+                {
+                    // Create Claim details
+                    var claims = new[]
+                    {
+                        new Claim(JwtRegisteredClaimNames.Sub, _configuration["Jwt:Subject"]),
+                        new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                        new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
+                        new Claim("AccountId", acc.AccountId.ToString()),
+                        new Claim("Password", acc.Password),
+                        new Claim("Email", acc.Email),
+                        new Claim("Password", acc.Password),
+                        new Claim("CustomerId", acc.CustomerId),
+                        new Claim("EmployeeId", acc.EmployeeId.ToString()),
+                        new Claim("Role", acc.Role.ToString())
+                    };
+
+                    var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
+                    var signIn = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+                    var token = new JwtSecurityToken(
+                            _configuration["Jwt:Issuer"],
+                            _configuration["Jwt:Audience"],
+                            claims,
+                            expires: DateTime.UtcNow.AddMinutes(10),
+                            signingCredentials: signIn
+                        );
+                    return Ok(new JwtSecurityTokenHandler().WriteToken(token));
+                }
+                else
+                {
+                    return BadRequest("Invalid credentials");
+                }
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+
+5. Active API controllers or actions (CustomerController.cs)
+-> Add [Authorize] attribute at the top of Controller classes or actions

@@ -318,3 +318,5 @@ C:\Users\trung duc\Documents\Semester 8\PRN231\Code\PRN231Fall22\API EF Http\API
 C:\Users\trung duc\Documents\Semester 8\PRN231\Code\PRN231Fall22\API EF Http\API EF Http\bin\Debug\net6.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 C:\Users\trung duc\Documents\Semester 8\PRN231\Code\PRN231Fall22\API EF Http\API EF Http\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll
 C:\Users\trung duc\Documents\Semester 8\PRN231\Code\PRN231Fall22\API EF Http\API EF Http\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\trung duc\Documents\Semester 8\PRN231\Code\PRN231Fall22\API EF Http\API EF Http\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\trung duc\Documents\Semester 8\PRN231\Code\PRN231Fall22\API EF Http\API EF Http\bin\Debug\net6.0\Microsoft.IdentityModel.Abstractions.dll

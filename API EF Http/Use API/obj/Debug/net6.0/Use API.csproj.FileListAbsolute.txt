@@ -86,3 +86,5 @@ C:\Users\trung duc\Documents\Semester 8\PRN231\Code\PRN231Fall22\API EF Http\Use
 C:\Users\trung duc\Documents\Semester 8\PRN231\Code\PRN231Fall22\API EF Http\Use API\obj\Debug\net6.0\Use API.pdb
 C:\Users\trung duc\Documents\Semester 8\PRN231\Code\PRN231Fall22\API EF Http\Use API\obj\Debug\net6.0\Use API.genruntimeconfig.cache
 C:\Users\trung duc\Documents\Semester 8\PRN231\Code\PRN231Fall22\API EF Http\Use API\obj\Debug\net6.0\ref\Use API.dll
+C:\Users\trung duc\Documents\Semester 8\PRN231\Code\PRN231Fall22\API EF Http\Use API\bin\Debug\net6.0\AutoMapper.dll
+C:\Users\trung duc\Documents\Semester 8\PRN231\Code\PRN231Fall22\API EF Http\Use API\bin\Debug\net6.0\Microsoft.IdentityModel.Abstractions.dll
