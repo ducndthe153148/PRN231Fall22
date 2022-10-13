@@ -14,7 +14,7 @@ namespace API_EF_Http.Controllers
         public PRN231DBContext dBContext;
         public CustomersController(PRN231DBContext dBContext)
         {
-            this.dBContext = dBContext;
+			this.dBContext = dBContext;
         }
         [HttpGet("[action]")]
         public async Task<IActionResult> List()
@@ -74,7 +74,6 @@ namespace API_EF_Http.Controllers
             {
                 return NoContent();
             }
-            
         }
 
         [HttpDelete("[action]/{id}")]

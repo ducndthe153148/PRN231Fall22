@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index</title>
+    <link href="css/style.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    
+</head>
+<body>
+    <div id="container">
+        <div id="header">
+            <div id="logo-admin">
+                Ecommerce Admin
+            </div>
+            <div id="banner-admin">
+                <ul>
+                    <li><a href="#">SignOut</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="content">
+            <div id="content-left">
+                <ul>
+                    <a href="dashboard.html">
+                    <li>Dashboard</li></a>
+                    <a href="order.html">
+                    <li>Orders</li></a>
+                    <a href="product.html">
+                    <li>Products</li></a>
+                    <a href="#">
+                    <li>Customers</li></a>
+                </ul>
+            </div>
+            <div id="content-right">
+                <div class="path-admin">PRODUCTS LIST</b></div>
+                <div class="content-main">
+                    <div id="content-main-dashboard">
+                        <div id="product-title-header">
+                            <div id="product-title-1" style="width: 25%;">
+                                <b>Filter by Catetory:</b>
+                                <form>
+                                    <select id="selectCategory" name="ddlCategory">
+                                    </select>
+                                    <input type="submit" value="Filter">
+                                </form>
+                            </div>
+                            <div id="product-title-2" style="width: 55%;">
+                                <form>
+                                    <input type="text" name="txtSearch" placeholder="Enter product name to search" />
+                                    <input type="submit" value="Search"
+                                </form>
+                            </div>
+                            <div id="product-title-3" style="width: 20%;">
+                                <a href="create-product.html">Create a new Product</a>
+                                <form action="">
+                                    <label for="upload-file">Import .xls or .xlsx file</label>
+                                    <input type="file" name="file" id="upload-file" />
+                                </form>
+                            </div>
+                        </div>
+                        <div id="order-table-admin">
+                            <table class="table table-bordered" id="Table">
+                                <tr>
+                                    <th>ProductID</th>
+                                    <th>ProductName</th>
+                                    <th>UnitPrice</th>
+                                    <th>Unit</th>
+                                    <th>Unit</th>
+                                    <th>UnitsInStock</th>
+                                    <th>Category</th>
+                                    <th>Discontinued</th>
+                                    <th></th>
+                                </tr>
+                            </table>
+                        </div>
+                        <div id="paging">
+                            <div class="pagination">
+                                <a href="#">&laquo;</a>
+                                <a href="#">1</a>
+                                <a href="#" class="active">2</a>
+                                <a href="#">3</a>
+                                <a href="#">4</a>
+                                <a href="#">5</a>
+                                <a href="#">6</a>
+                                <a href="#">&raquo;</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="footer-admin">footer</div>
+    </div>
+</body>
+</html>
+
+<script src="lib/jquery/dist/jquery.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        Manager.GetAllProducts();
+        Category.GetAllCategories();
+
+        $("table").on("click", "img.delete", function () {
+            var productId = $(this).parents("tr").find("td:nth-child(1)").text();
+
+            $.ajax({
+                url: "https://localhost:44324/api/Reservation/" + productId,
+                type: "delete",
+                contentType: "application/json",
+                success: function (result, status, xhr) {
+                    ShowAllReservation();
+                },
+                error: function (xhr, status, error) {
+                    console.log(xhr)
+                }
+            });
+        });
+    })
+    var Category = {
+        GetAllCategories: function () {
+            var obj = "";
+            var serviceURL = "http://localhost:5000/api/Categories/list";
+            window.Manager.GetAPI(serviceURL, onSuccess, onFailed);
+            function onSuccess(jsonData) {
+                obj = jsonData;
+                $.each(jsonData, function (i, item) {
+                    var categories = 
+                        "<option>" + item.categoryName + "</option>" 
+                   ;
+                    $('#selectCategory').append(categories);
+                });
+            }
+            function onFailed(error) {
+                window.alert(error.statusText);
+            }
+            return obj;
+        },
+        GetAPI: function (serviceURL, successCallback, errorCallback) {
+            $.ajax({
+                type: "GET",
+                url: serviceURL,
+                dataType: "json",
+                success: successCallback,
+                error: errorCallback
+            });
+        },
+    }
+    var Manager = {
+        GetAllProducts: function () {
+            var obj = "";
+            var serviceURL = "http://localhost:5000/api/Products/getAllProduct";
+            window.Manager.GetAPI(serviceURL, onSuccess, onFailed);
+            function onSuccess(jsonData) {
+                obj = jsonData;
+                $.each(jsonData, function (i, item) {
+                    var rows = "<tr>" +
+                        "<td id='Id'><a href='#''>" + item.productId + "</td>" +
+                        "<td id='Name'>" + item.productName + "</td>" +
+                        "<td id='UnitPrice'>" + item.unitPrice + "</td>" +
+                        "<td id='Unit'>" + item.quantityPerUnit + "</td>" +
+                        "<td id='unitsInStock'>" + item.unitsInStock + "</td>" +
+                        "<td id='Category'>" + item.category.categoryName + "</td>" +
+                        "<td id='Discontinued'>" + item.discontinued + "</td>" +
+                        "<td> <a href='edit.html?id=" + item.productId + "'>Edit</a> &nbsp; | &nbsp; " +
+                        "<a href='delete.html?id=" + item.productId + "'>Delete</a>"
+                    "</tr>";
+                    $('#Table').append(rows);
+                });
+            }
+            function onFailed(error) {
+                window.alert(error.statusText);
+            }
+            return obj;
+        },
+        GetAPI: function (serviceURL, successCallback, errorCallback) {
+            $.ajax({
+                type: "GET",
+                url: serviceURL,
+                dataType: "json",
+                success: successCallback,
+                error: errorCallback
+            });
+        },
+    }
+</script>

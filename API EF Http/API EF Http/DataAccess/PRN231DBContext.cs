@@ -16,6 +16,7 @@ namespace API_EF_Http.DataAccess
         {
         }
 
+        public virtual DbSet<Account> Accounts { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<Department> Departments { get; set; }
@@ -26,15 +27,43 @@ namespace API_EF_Http.DataAccess
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
-            IConfigurationRoot configuration = builder.Build();
-            optionsBuilder.UseSqlServer(configuration.GetConnectionString("MyStockDB"));
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Account>(entity =>
+            {
+                entity.HasIndex(e => e.AccountId, "UQ_Email")
+                    .IsUnique();
+
+                entity.Property(e => e.AccountId).HasColumnName("AccountID");
+
+                entity.Property(e => e.CustomerId)
+                    .HasMaxLength(5)
+                    .HasColumnName("CustomerID")
+                    .IsFixedLength();
+
+                entity.Property(e => e.Email)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.EmployeeId).HasColumnName("EmployeeID");
+
+                entity.Property(e => e.Password)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.Customer)
+                    .WithMany(p => p.Accounts)
+                    .HasForeignKey(d => d.CustomerId)
+                    .HasConstraintName("FK_Accounts_Customers");
+
+                entity.HasOne(d => d.Employee)
+                    .WithMany(p => p.Accounts)
+                    .HasForeignKey(d => d.EmployeeId)
+                    .HasConstraintName("FK_Accounts_Employees");
+            });
+
             modelBuilder.Entity<Category>(entity =>
             {
                 entity.HasIndex(e => e.CategoryName, "CategoryName");

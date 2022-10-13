@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using API_EF_Http.DataAccess;
+using Microsoft.AspNetCore.Authorization;
 
 namespace API_EF_Http.Controllers
 {
@@ -21,6 +22,7 @@ namespace API_EF_Http.Controllers
         }
 
         // GET: api/Departments
+        [Authorize]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Department>>> GetDepartments()
         {
