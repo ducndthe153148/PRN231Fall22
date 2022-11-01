@@ -7,7 +7,7 @@
     <title>Index</title>
     <link href="css/style.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
-    
+    <script src="lib/jquery/dist/jquery.js"></script>
 </head>
 <body>
     <div id="container">
@@ -36,6 +36,7 @@
             </div>
             <div id="content-right">
                 <div class="path-admin">PRODUCTS LIST</b></div>
+                <h2>List Movies - <a class="btn btn-primary" href="AddMovie.html">Add New Movies</a></h2>
                 <div class="content-main">
                     <div id="content-main-dashboard">
                         <div id="product-title-header">
@@ -49,8 +50,10 @@
                             </div>
                             <div id="product-title-2" style="width: 55%;">
                                 <form>
-                                    <input type="text" name="txtSearch" placeholder="Enter product name to search" />
-                                    <input type="submit" value="Search"
+                                    <input id="keyword" type="text" name="txtSearch" placeholder="Enter product name to search" onkeydown="if (event.key == 'Enter') Search();"/>
+                                    <a class="col-1 align-self-center btn w-25 rounded-pill" id="SearchButton" onclick="Search();">
+                                        <img src="icon/search.png" height="25" />
+                                    </a>
                                 </form>
                             </div>
                             <div id="product-title-3" style="width: 20%;">
@@ -63,17 +66,20 @@
                         </div>
                         <div id="order-table-admin">
                             <table class="table table-bordered" id="Table">
-                                <tr>
-                                    <th>ProductID</th>
-                                    <th>ProductName</th>
-                                    <th>UnitPrice</th>
-                                    <th>Unit</th>
-                                    <th>Unit</th>
-                                    <th>UnitsInStock</th>
-                                    <th>Category</th>
-                                    <th>Discontinued</th>
-                                    <th></th>
-                                </tr>
+                                <thead>
+                                    <tr>
+                                        <th>ProductID</th>
+                                        <th>ProductName</th>
+                                        <th>UnitPrice</th>
+                                        <th>Unit</th>
+                                        <th>Unit</th>
+                                        <th>UnitsInStock</th>
+                                        <th>Category</th>
+                                        <th>Discontinued</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
                             </table>
                         </div>
                         <div id="paging">
@@ -100,8 +106,82 @@
 <script src="lib/jquery/dist/jquery.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
+        ShowAllProducts();
+
+        function ShowAllProducts() {
+            $("table tbody").html("");
+            $.ajax({
+                url: "http://localhost:5000/api/Products/getAllProduct",
+                type: "get",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (result, status, xhr) {
+                    $.each(result, function (index, value) {
+                        $("tbody").append($("<tr>"));
+                        appendElement = $("tbody tr").last();
+                        appendElement.append($("<td>").html(value["productId"]));
+                        appendElement.append($("<td>").html(value["productName"]));
+                        appendElement.append($("<td>").html(value["unitPrice"]));
+                        appendElement.append($("<td>").html(value["quantityPerUnit"]));
+                        appendElement.append($("<td>").html(value["unitsInStock"]));
+                        appendElement.append($("<td>").html(value["categoryId"]));
+                        appendElement.append($("<td>").html(value["discontinued"]));
+                        appendElement.append($("<td>").html("<a href=\"EditMovie.html?productId=" + value["productId"] + "\"><img src=\"icon/edit.png\" /></a>"));
+                        appendElement.append($("<td>").html("<img class=\"delete\" src=\"icon/close.png\" />"));
+                    });
+                },
+                error: function (xhr, status, error) {
+                    console.log(xhr);
+                }
+            });
+        };
+
+        $("table").on("click", "img.delete", function () {
+            var movieId = $(this).parents("tr").find("td:nth-child(1)").text();
+
+            $.ajax({
+                url: "http://localhost:5000/api/Movie/" + movieId,
+                type: "delete",
+                contentType: "application/json",
+                success: function (result, status, xhr) {
+                    ShowAllProducts();
+                },
+                error: function (xhr, status, error) {
+                    console.log(xhr);
+                }
+            });
+        });
+    });
+    function Search() {
+        let keyword = $("#keyword").val();
+
+        $.ajax({
+            url: "http://localhost:5000/api/Movie/search?title=" + keyword,
+            type: "get",
+            contentType: "application/json",
+            success: function (result, status, xhr) {
+                $("tbody").empty();
+                $.each(result, function (index, value) {
+                    $("tbody").append($("<tr>"));
+                    appendElement = $("tbody tr").last();
+                    appendElement.append($("<td>").html(value["movieId"]));
+                    appendElement.append($("<td>").html(value["title"]));
+                    appendElement.append($("<td>").html(value["year"]));
+                    appendElement.append($("<td>").html(value["genre"]["description"]));
+                    appendElement.append($("<td>").html("<a href=\"EditMovie.html?id=" + value["movieId"] + "\"><img src=\"icon/edit.png\" /></a>"));
+                    appendElement.append($("<td>").html("<img class=\"delete\" src=\"icon/close.png\" />"));
+                });
+            },
+            error: function (xhr, status, error) {
+                console.log(xhr);
+            }
+        });
+    }
+</script>
+<!--<script type="text/javascript">
+    $(document).ready(function () {
         Manager.GetAllProducts();
-        Category.GetAllCategories();
+        Manager.GetAllCategories();
 
         $("table").on("click", "img.delete", function () {
             var productId = $(this).parents("tr").find("td:nth-child(1)").text();
@@ -119,7 +199,7 @@
             });
         });
     })
-    var Category = {
+    var Manager = {
         GetAllCategories: function () {
             var obj = "";
             var serviceURL = "http://localhost:5000/api/Categories/list";
@@ -127,9 +207,9 @@
             function onSuccess(jsonData) {
                 obj = jsonData;
                 $.each(jsonData, function (i, item) {
-                    var categories = 
-                        "<option>" + item.categoryName + "</option>" 
-                   ;
+                    var categories =
+                        "<option>" + item.categoryName + "</option>"
+                        ;
                     $('#selectCategory').append(categories);
                 });
             }
@@ -138,17 +218,6 @@
             }
             return obj;
         },
-        GetAPI: function (serviceURL, successCallback, errorCallback) {
-            $.ajax({
-                type: "GET",
-                url: serviceURL,
-                dataType: "json",
-                success: successCallback,
-                error: errorCallback
-            });
-        },
-    }
-    var Manager = {
         GetAllProducts: function () {
             var obj = "";
             var serviceURL = "http://localhost:5000/api/Products/getAllProduct";
@@ -185,4 +254,4 @@
             });
         },
     }
-</script>
+</script>-->

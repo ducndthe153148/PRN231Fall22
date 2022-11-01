@@ -1,0 +1,73 @@
+﻿@{
+    var useAccount = ViewData["useAccount"] as ClientSever.DTO.AccCusDTO;
+}
+
+<div id="content-left">
+    <h3 style="font-weight: normal;">Welcome @useAccount.ContactName</h3>
+    <h6>@useAccount.ContactTitle</h6>
+    <ul>
+        <a href="/Welcome/Profile">
+        <li>Personal information</li></a>
+    </ul>
+    <h3>My order</h3>
+    <ul>
+        <a href="/OrderView/Index">
+        <li>All orders</li></a>
+        <a href="/OrderView/CanceledOrder">
+        <li>Canceled order</li></a>
+    </ul>
+</div>
+<div id="content-right">
+    <div class="path">LIST CANCEL ORDERS</b></div>
+    <div class="content-main">
+        <div id="profile-content-order">
+            @if (ViewBag.CustomerOrder != null)
+            {
+                int a = 1;
+                foreach (var o in ViewBag.CustomerOrder.Orders)
+                {
+                    @if (o.RequiredDate == null)
+                    {
+                        <div>
+                            <div class="profile-order-title">
+                                <div class="profile-order-title-left">
+                                    <div>Order creation date: @o.OrderDate</div>
+                                    <div>Order: <a href="#">#@a</a></div>
+                                </div>
+                                <div class="profile-order-title-right">
+                                    @if (o.RequiredDate == null)
+                                    {
+                                        <span style="color: red;">Canceled</span>
+                                    }
+                                    else if (o.ShippedDate <= DateTime.Now && o.RequiredDate != null)
+                                    {
+                                        <span style="color: blue;">Completed</span>
+                                    }
+                                    else
+                                    {
+                                        <span style="color: green;">Pending | <a asp-page-handler="CancelOrder" asp-route-id="@o.OrderId">Cancel</a></span>
+                                    }
+                                </div>
+                            </div>
+                            @foreach (var i in o.OrderDetails)
+                            {
+                                <div class="profile-order-content">
+                                    <div class="profile-order-content-col1">
+                                        <a href="detail.html"><img src="~/images/1.jpg" width="100%" /></a>
+                                    </div>
+                                    <div class="profile-order-content-col2">@i.Product.ProductName</div>
+                                    <div class="profile-order-content-col3">Quantity: @i.Quantity</div>
+                                    <div class="profile-order-content-col4">@(i.UnitPrice * i.Quantity) $</div>
+                                </div>
+                            }
+
+
+                        </div>
+                    }
+                }
+
+            }
+
+        </div>
+    </div>
+</div>

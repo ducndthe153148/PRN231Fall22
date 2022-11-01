@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit</title>
+    <link href="lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <script src="lib/jquery/dist/jquery.js"></script>
+</head>
+<body>
+    <div class="container-fluid">
+        <h2>Update a Movie <a href="Index.html" class="btn btn-sm btn-primary">Back</a></h2>
+        <div class="form-group">
+            <label for="Id">Movie Number</label>
+            <input type="text" name="" id="movieId" class="form-control" readonly>
+        </div>
+        <div class="form-group">
+            <label for="Name">Title</label>
+            <input type="text" name="" id="title" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="startLocation">Year</label>
+            <input type="number" name="" id="year" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="EndLocation">Genre</label>
+            <select title="" name="" id="genre">
+            </select>
+        </div>
+        <div class="text-center panel-body">
+            <button type="submit" class="btn btn-sm btn-primary" id="UpdateButton">Update Movie</button>
+        </div>
+        <div id="resultDiv" style="display: none; margin-top: 10px;">
+            <h2>Movies updated:</h2>
+            <table class="table table-sm table-striped table-bordered m-2">
+                <thead><tr><th>Movie Number</th><th>Title</th><th>Year</th><th>Genre</th></tr></thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            let params = (new URL(document.location)).searchParams;
+            let id = params.get("productId");
+            GetMovieById(id);
+            console.log(id);
+            let movieId = $("#productId").val();
+
+            ShowAllGenre();
+
+            function ShowAllGenre() {
+                $.ajax({
+                    url: "http://localhost:5000/api/Genre",
+                    type: "get",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (result, status, xhr) {
+                        $.each(result, function (index, value) {
+                            appendElement = $("#genre");
+                            appendElement.append($("<option>").attr("value",value["genreId"]).html(value["description"]));
+                        });
+                    },
+                    error: function (xhr, status, error) {
+                        console.log(xhr);
+                    }
+                });
+            };
+
+            function GetMovieById(id) {
+                $.ajax({
+                    url: "http://localhost:5000/api/Movie/"+id,
+                    type: "get",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (result, status, xhr) {
+                        console.log(result);
+                        $("#movieId").attr("value", id);
+                        $("#title").attr("value", result["title"]);
+                        $("#year").attr("value", result["year"]);
+                        //$("#EndLocation").attr("value", result["endLocation"]);
+                        $("#genre option").removeAttr("selected")
+                                          .filter("[value="+result["genre"]["genreId"]+"]")
+                                          .attr("selected", true);
+                    },
+                    error: function (xhr, status, error) {
+                        console.log(xhr);
+                    }
+                });
+            };
+        });
+        $("#UpdateButton").on("click", function (e) {
+            let params = (new URL(document.location)).searchParams;
+            let id = params.get("id");
+            var json = {
+                movieId: id,
+                title: $("#title").val(),
+                year: $("#year").val(),
+                genreId: $("#genre").find(":selected").val()
+            };
+            $.ajax({
+                type: "put",
+                contentType: "application/json; charset=UTF-8",
+                url: "http://localhost:5000/api/Movie/?id="+id,
+                data: JSON.stringify(json),
+                dataType: "json",
+                success: function (result, status, xhr) {
+                    console.log("success");
+                    var str = "<tr>";
+                            str += "<td>"+result["movieId"]+"</td>";
+                            str += "<td>"+result["title"]+"</td>";
+                            str += "<td>"+result["year"]+"</td>";
+                            str += "<td>"+$("#genre").find(":selected").html()+"</td>";
+                            str += "</tr>";
+                    $("table tbody").append(str);
+                    $("#resultDiv").show();
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

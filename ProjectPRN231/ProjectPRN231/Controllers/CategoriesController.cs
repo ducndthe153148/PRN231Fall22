@@ -16,8 +16,9 @@ namespace ProjectPRN231.Controllers
         {
             _context = context;
         }
+        // http://localhost:5000/api/Categories/ListCategory/
         [HttpGet("[action]")]
-        public IActionResult List()
+        public IActionResult ListCategory()
         {
             try
             {

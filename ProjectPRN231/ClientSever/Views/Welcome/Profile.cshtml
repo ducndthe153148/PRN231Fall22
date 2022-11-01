@@ -1,0 +1,45 @@
+﻿
+@{
+    var useAccount = ViewData["useAccount"] as ClientSever.DTO.AccCusDTO;
+}
+<div id="content-left">
+    <h3 style="font-weight: normal;">Welcome, @useAccount.ContactName</h3>
+    <h6>@useAccount.ContactTitle</h6>
+    <ul>
+        <a href="/welcome/profile">
+        <li>Personal information</li></a>
+    </ul>
+    @if (Context.Session.GetString("role") == "1")
+    {
+
+    } else {
+        <h3>My order</h3>
+        <ul>
+            <a href="/OrderView/Index">
+            <li>All orders</li></a>
+            <a href="/OrderView/CanceledOrder">
+            <li>Canceled order</li></a>
+        </ul>
+    }
+</div>
+<div id="content-right">
+    <div class="path">Personal information</b></div>
+    <div class="content-main">
+        <div id="profile-content">
+            <div class="profile-content-col">
+                <div>Company name: <br />@useAccount.CompanyName</div>
+                <div>Contact name: <br />@useAccount.ContactName</div>
+                <div>
+                    <input type="button" value="Edit info" />
+                </div>
+            </div>
+            <div class="profile-content-col">
+                <div>Company title: <br />@useAccount.ContactTitle</div>
+                <div>Address: <br />@useAccount.Address</div>
+            </div>
+            <div class="profile-content-col">
+                <div>Email: <br />@useAccount.Email</div>
+            </div>
+        </div>
+    </div>
+</div>

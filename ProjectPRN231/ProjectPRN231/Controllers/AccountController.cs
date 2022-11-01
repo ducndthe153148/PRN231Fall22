@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using ProjectPRN231.DataAccess;
+using ProjectPRN231.DTO;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -33,6 +35,33 @@ namespace ProjectPRN231.Controllers
             return Ok(E);
         }
 
+        // Add authorize later 
+        //http://localhost:5000/api/Account/GetPersonalAccount/1
+        [Authorize("1")]
+        [HttpGet("[action]/{id}")]
+        public async Task<ActionResult<IEnumerable<Account>>> GetPersonalAccount(int id)
+        {
+            var A = await _context.Accounts.FirstOrDefaultAsync(a => a.AccountId == id);
+            var C = await _context.Customers.FirstOrDefaultAsync(c => c.CustomerId == A.CustomerId);
+            // New DTO To Show data 
+            AccCusDTO accCusDTO = new AccCusDTO {
+                AccountId = A.AccountId,
+                Email = A.Email,
+                Password = A.Password,
+                Role = A.Role,
+                CustomerId = A.CustomerId,
+                CompanyName = C.CompanyName,
+                ContactName = C.ContactName,
+                ContactTitle = C.ContactTitle,
+                Address = C.Address
+            };
+            if (accCusDTO == null)
+            {
+                return NoContent();
+            }
+            return Ok(accCusDTO);
+        }
+        [AllowAnonymous]
         [HttpPost("login")]
         //  cust1@gmail.com - 123
         public async Task<IActionResult> Post(Account account)
@@ -48,9 +77,8 @@ namespace ProjectPRN231.Controllers
                         new Claim(JwtRegisteredClaimNames.Sub, _configuration["Jwt:Subject"]),
                         new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                         new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
-                        new Claim("AccountId", acc.AccountId.ToString()),
-                        new Claim("Password", acc.Password),
-                        new Claim("Email", acc.Email)
+                        new Claim(ClaimTypes.Email, account.Email),
+                        new Claim(ClaimTypes.Role, acc.Role.ToString())
                     };
 
                     var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
@@ -73,6 +101,60 @@ namespace ProjectPRN231.Controllers
             {
                 return BadRequest();
             }
+        }
+        [AllowAnonymous]
+        [HttpPost("[action]")]
+        // http://localhost:5000/api/Account/Register/
+        public async Task<IActionResult> Register([FromBody] AccCusDTO account)
+        {
+            try
+            {
+                var customerId = RandomString(5);
+                if (account != null && account.Email != null && account.Password != null)
+                {
+                    _context.Add<Customer>(new Customer
+                    {
+                        CustomerId = customerId,
+                        CompanyName = account.CompanyName,
+                        ContactName = account.ContactName,
+                        ContactTitle = account.ContactTitle,
+                        Address = account.Address
+                    });
+                    _context.Add<Account>(new Account
+                    {
+                        Email = account.Email,
+                        Password = account.Password,
+                        Role = account.Role,
+                        CustomerId = customerId
+                    });
+
+                    _context.SaveChanges();
+                    return Ok(account);
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Fail at running");
+            }
+        }
+        private string RandomString(int length)
+        {
+            // creating a StringBuilder object()
+            StringBuilder str_build = new StringBuilder();
+            Random random = new Random();
+            char letter;
+            for (int i = 0; i < length; i++)
+            {
+                double flt = random.NextDouble();
+                int shift = Convert.ToInt32(Math.Floor(25 * flt));
+                letter = Convert.ToChar(shift + 65);
+                str_build.Append(letter);
+            }
+            return str_build.ToString();
         }
     }
 }

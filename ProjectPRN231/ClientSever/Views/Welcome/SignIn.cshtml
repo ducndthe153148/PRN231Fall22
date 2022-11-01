@@ -1,0 +1,30 @@
+﻿@model Account
+@{
+    var checkLogin = ViewData["checklogin"];
+}
+<div id="content">
+    <div id="form">
+        <div id="form-title">
+            <span><a asp-controller="welcome" asp-action="signup" >SIGN UP</a></span>
+            <span><a asp-controller="welcome" asp-action="signin" style="color: red;">SIGN IN</a></span>
+        </div>
+        <div id="form-content">
+            <form asp-controller="welcome" asp-action="CheckSignIn" method="post">
+                <div>
+                    <label asp-for="Email">Email<span style="color: red;">*</span></label><br />
+                    <input asp-for="Email" type="Text"/><br />
+                </div>
+                @*<span class="msg-error">Email is required</span><br />*@
+                <div>
+                    <label asp-for="Password">Password<span style="color: red;">*</span></label><br />
+                    <input asp-for="Password" type="password" /><br />
+                </div>
+                @*<span class="msg-error">Password is required</span><br />*@
+                <div><a href="forgot.html">Forgot password?</a></div>
+                <input type="submit" value="SIGN IN" /><br />
+                <input type="button" value="FACEBOOK LOGIN" style="background-color: #3b5998;" /><br />
+                <input type="button" value="ZALO LOGIN" style="background-color: #009dff;margin-bottom: 30px;" />
+            </form>
+        </div>
+    </div>
+</div>

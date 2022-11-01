@@ -1,0 +1,66 @@
+﻿@using System.Text.Json
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ClientSever</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/ClientSever.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <div id="container">
+        <div id="header">
+            <div id="logo">
+                <a href="/Home/Index"><img src="~/images/logo.png" /></a>
+            </div>
+            <div id="banner">
+                <ul>
+                    @if (Context.Session.GetString("CartList") != null)
+                    {
+                        var option = new JsonSerializerOptions()
+                {
+                    AllowTrailingCommas = true,
+                    WriteIndented = true,
+                    ReadCommentHandling = JsonCommentHandling.Skip
+                };
+                        var acc = JsonSerializer.Deserialize<List<ClientSever.Models.CartSession>>(Context.Session.GetString("CartList"), option);
+                        var total = 0;
+                        @foreach (var item in acc)
+                        {
+                            total += item.Quantity;
+                        }
+                        <li><a href="/CartProduct/Index">Cart: @total</a></li>
+                    }
+                    else
+                    {
+                        <li><a href="/CartProduct/Index">Cart: 0</a></li>
+                    }
+                    @if (Context.Session.GetString("user") != null)
+                    {
+
+                        <li><a asp-controller="welcome" asp-action="profile">Profile</a></li>
+                        <li><a href="/welcome/Logout">SignOut</a></li>
+                    }
+                    else
+                    {
+                        <li><a asp-controller="welcome" asp-action="signup">SignUp</a></li>
+                        <li><a asp-controller="welcome" asp-action="signin">SignIn</a></li>
+                    }
+                </ul>
+            </div>
+            
+        </div>
+        <div id="content">
+            @RenderBody()
+        </div>
+
+        <div id="footer-admin">footer</div>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

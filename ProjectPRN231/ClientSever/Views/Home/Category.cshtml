@@ -1,0 +1,28 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    var products = ViewData["products"] as IList<Product>;
+}
+
+<div id="content-left">
+    <li><a asp-controller="order" asp-action="myorder">Category 1</a></li>
+    <li><a asp-controller="product" asp-action="ManageProduct">Category 2</a></li>
+    <li><a asp-controller="order" asp-action="manageorder">Category 3</a></li>
+</div>
+<div id="content-right">
+<div class="content-main">
+    <div class="path">@products[0].Category.CategoryName</b></div>
+    <div class="grid-container">
+        @foreach (var item in products)
+        {
+            <div class="productCat">
+                <a asp-controller="home" asp-action="DetailProduct" asp-route-id="@item.ProductId"><img src="/css/1.jpg" width="100%" /></a>
+                <div class="name"><a asp-controller="home" asp-action="DetailProduct" asp-route-id="@item.ProductId">@item.ProductName</a></div>
+                <div class="price">@item.UnitPrice $</div>
+                <div><a href="">Buy now</a></div>
+            </div>
+        }
+    </div>
+</div>
+</div>

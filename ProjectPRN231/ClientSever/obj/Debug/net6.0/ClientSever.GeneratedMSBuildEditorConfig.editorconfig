@@ -1,0 +1,96 @@
+is_global = true
+build_property.TargetFramework = net6.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = ClientSever
+build_property.RootNamespace = ClientSever
+build_property.ProjectDir = C:\Users\trung duc\Documents\Semester 8\PRN231\Code\PRN231Fall22\ProjectPRN231\ClientSever\
+build_property.RazorLangVersion = 6.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\trung duc\Documents\Semester 8\PRN231\Code\PRN231Fall22\ProjectPRN231\ClientSever
+build_property._RazorSourceGeneratorDebug = 
+
+[C:/Users/trung duc/Documents/Semester 8/PRN231/Code/PRN231Fall22/ProjectPRN231/ClientSever/Views/CartProduct/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FydFByb2R1Y3RcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/trung duc/Documents/Semester 8/PRN231/Code/PRN231Fall22/ProjectPRN231/ClientSever/Views/Home/Category.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxDYXRlZ29yeS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/trung duc/Documents/Semester 8/PRN231/Code/PRN231Fall22/ProjectPRN231/ClientSever/Views/Home/DetailProduct.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxEZXRhaWxQcm9kdWN0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/trung duc/Documents/Semester 8/PRN231/Code/PRN231Fall22/ProjectPRN231/ClientSever/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/trung duc/Documents/Semester 8/PRN231/Code/PRN231Fall22/ProjectPRN231/ClientSever/Views/Home/LeftNav.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxMZWZ0TmF2LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/trung duc/Documents/Semester 8/PRN231/Code/PRN231Fall22/ProjectPRN231/ClientSever/Views/OrderView/CanceledOrder.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJWaWV3XENhbmNlbGVkT3JkZXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/trung duc/Documents/Semester 8/PRN231/Code/PRN231Fall22/ProjectPRN231/ClientSever/Views/OrderView/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJWaWV3XEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/trung duc/Documents/Semester 8/PRN231/Code/PRN231Fall22/ProjectPRN231/ClientSever/Views/Order/Detail.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJcRGV0YWlsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/trung duc/Documents/Semester 8/PRN231/Code/PRN231Fall22/ProjectPRN231/ClientSever/Views/Order/ManageOrder.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJcTWFuYWdlT3JkZXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/trung duc/Documents/Semester 8/PRN231/Code/PRN231Fall22/ProjectPRN231/ClientSever/Views/Order/MyOrder.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJcTXlPcmRlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/trung duc/Documents/Semester 8/PRN231/Code/PRN231Fall22/ProjectPRN231/ClientSever/Views/Product/ManageProduct.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdFxNYW5hZ2VQcm9kdWN0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/trung duc/Documents/Semester 8/PRN231/Code/PRN231Fall22/ProjectPRN231/ClientSever/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/trung duc/Documents/Semester 8/PRN231/Code/PRN231Fall22/ProjectPRN231/ClientSever/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/trung duc/Documents/Semester 8/PRN231/Code/PRN231Fall22/ProjectPRN231/ClientSever/Views/Welcome/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2VsY29tZVxFcnJvci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/trung duc/Documents/Semester 8/PRN231/Code/PRN231Fall22/ProjectPRN231/ClientSever/Views/Welcome/Profile.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2VsY29tZVxQcm9maWxlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/trung duc/Documents/Semester 8/PRN231/Code/PRN231Fall22/ProjectPRN231/ClientSever/Views/Welcome/SignIn.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2VsY29tZVxTaWduSW4uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/trung duc/Documents/Semester 8/PRN231/Code/PRN231Fall22/ProjectPRN231/ClientSever/Views/Welcome/SignUp.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2VsY29tZVxTaWduVXAuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/trung duc/Documents/Semester 8/PRN231/Code/PRN231Fall22/ProjectPRN231/ClientSever/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/trung duc/Documents/Semester 8/PRN231/Code/PRN231Fall22/ProjectPRN231/ClientSever/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/trung duc/Documents/Semester 8/PRN231/Code/PRN231Fall22/ProjectPRN231/ClientSever/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-2z02v5kfzv

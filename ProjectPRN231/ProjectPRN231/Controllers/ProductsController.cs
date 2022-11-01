@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProjectPRN231.DataAccess;
+using System.Numerics;
+using System.Security.Claims;
 
 namespace ProjectPRN231.Controllers
 {
@@ -15,7 +17,8 @@ namespace ProjectPRN231.Controllers
         {
             this._context = _context;
         }
-        [HttpGet("hot")]
+        // http://localhost:5000/api/Products/getFourHot
+        [HttpGet("getFourHot")]
         public async Task<IActionResult> GetHotProducts()
         {
             List<Product> GetTopDiscountProducts = new List<Product>();
@@ -33,15 +36,16 @@ namespace ProjectPRN231.Controllers
             var product = _context.Products.FirstOrDefault(x => x.ProductId == id);
             return product;
         }
-        [HttpGet("bestSale")]
-        public async Task<IActionResult> GetBestSaleProducts()
-        {
+        //[HttpGet("getFourBestSale")]
+        //public async Task<IActionResult> GetBestSaleProducts()
+        //{
 
-            List<Product> GetBestSaleProducts = new List<Product>();
-            return Ok(GetBestSaleProducts); 
-        }
+        //    List<Product> GetBestSaleProducts = new List<Product>();
+        //    return Ok(GetBestSaleProducts); 
+        //}
 
-        [HttpGet("new")]
+        // http://localhost:5000/api/Products/getFourNew
+        [HttpGet("getFourNew")]
         public async Task<IActionResult> GetNewestProducts()
         {
             List<Product> list = await _context.Products.OrderByDescending(x => x.ProductId).Take(4).ToListAsync();
@@ -68,6 +72,7 @@ namespace ProjectPRN231.Controllers
             }
             
         }
+        // Get all product by category id 
         [HttpGet("filter/{categoryId}")]
         public async Task<ActionResult<IEnumerable<Account>>> Filter(int categoryId)
         {
@@ -110,7 +115,7 @@ namespace ProjectPRN231.Controllers
             }
         }
 
-        [Authorize]
+        //[Authorize("1")]  
         [HttpPost("create")]
         public async Task<IActionResult> Create(Product p)
         {
@@ -128,7 +133,7 @@ namespace ProjectPRN231.Controllers
             }
         }
 
-        [Authorize]
+        //[Authorize("1")]
         [HttpPut("edit")]
         public async Task<IActionResult> Edit(Product E)
         {
@@ -154,7 +159,7 @@ namespace ProjectPRN231.Controllers
 
         }
 
-        [Authorize]
+        //[Authorize("1")]
         [HttpDelete("delete/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
@@ -176,6 +181,31 @@ namespace ProjectPRN231.Controllers
                     return Ok(C);
                 }
             }
+        }
+        // Authorize admin and seller 
+        [Authorize("1")]
+        [HttpGet("TestRole1")]
+        public IActionResult SellersEndpoint()
+        {
+            var currentUser = GetCurrentUser();
+
+            return Ok($"Hi {currentUser.Email}, you are a {currentUser.Role}");
+        }
+        public Account GetCurrentUser()
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+
+            if (identity != null)
+            {
+                var userClaims = identity.Claims;
+
+                return new Account
+                {
+                    Email = userClaims.FirstOrDefault(o => o.Type == ClaimTypes.Email)?.Value,
+                    Role = Int16.Parse(userClaims.FirstOrDefault(o => o.Type == ClaimTypes.Role)?.Value)
+                };
+            }
+            return null;
         }
     }
 }

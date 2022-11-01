@@ -1,0 +1,51 @@
+﻿
+@{
+    ViewData["Title"] = "Home Page";
+    var hotProduct = ViewData["hotProduct"] as IList<Product>;
+    var bestSaleProduct = ViewData["bestSaleProduct"] as IList<Product>;
+    var fourNewProduct = ViewData["fourNewProduct"] as IList<Product>;
+}
+
+<div id="content-left">
+    <li><a asp-controller="order" asp-action="myorder">Category 1</a></li>
+    <li><a asp-controller="product" asp-action="ManageProduct">Category 2</a></li>
+    <li><a asp-controller="order" asp-action="manageorder">Category 3</a></li>
+</div>
+<div id="content-right">
+    <div class="path">Hot</b></div>
+    <div class="content-main">
+        @foreach (var item in hotProduct)
+        {
+            <div class="product">
+                <a asp-controller="home" asp-action="DetailProduct" asp-route-id="@item.ProductId"><img src="/css/1.jpg" width="100%" /></a>
+                <div class="name"><a asp-controller="home" asp-action="DetailProduct" asp-route-id="@item.ProductId">@item.ProductName</a></div>
+                <div class="price">@item.UnitPrice $</div>
+                <div><a asp-action="AddProductToCart" asp-route-id="@item.ProductId">Buy now</a></div>
+            </div>
+        }
+    </div>
+    <div class="path">Best Sale</b></div>
+    <div class="content-main">
+        @foreach (var item in bestSaleProduct)
+        {
+            <div class="product">
+                <a asp-controller="home" asp-action="DetailProduct" asp-route-id="@item.ProductId"><img src="/css/1.jpg" width="100%" /></a>
+                <div class="name"><a asp-controller="home" asp-action="DetailProduct" asp-route-id="@item.ProductId">@item.ProductName</a></div>
+                <div class="price">@item.UnitPrice $</div>
+                <div><a asp-action="AddProductToCart" asp-route-id="@item.ProductId">Buy now</a></div>
+            </div>
+        }
+    </div>
+    <div class="path">New Product</b></div>
+    <div class="content-main">
+        @foreach (var item in fourNewProduct)
+        {
+            <div class="product">
+                <a asp-controller="home" asp-action="DetailProduct" asp-route-id="@item.ProductId"><img src="/css/1.jpg" width="100%" /></a>
+                <div class="name"><a asp-controller="home" asp-action="DetailProduct" asp-route-id="@item.ProductId">@item.ProductName</a></div>
+                <div class="price">@item.UnitPrice $</div>
+                <div><a asp-action="AddProductToCart" asp-route-id="@item.ProductId">Buy now</a></div>
+            </div>
+        }
+    </div>
+</div>

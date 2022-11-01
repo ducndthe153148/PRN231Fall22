@@ -1,0 +1,148 @@
+﻿@model IEnumerable<ClientSever.Models.Order>
+
+@{
+    ViewData["Title"] = "ManageOrder";
+}
+
+<div id="content-left">
+    <ul>
+        <a href="dashboard.html">
+        <li>Dashboard</li></a>
+        <a href="/Order/ManageOrder">
+        <li>Orders</li></a>
+        <a href="/Product/ManageProduct">
+        <li>Products</li></a>
+        <a href="#">
+        <li>Customers</li></a>
+    </ul>
+</div>
+
+<div id="content-right">
+<div class="path-admin">
+    ORDERS LIST
+</div>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<div class="content-main">
+    <div id="content-main-dashboard">
+        <div id="order-title">
+            <b>Filter by Order date:</b>
+            <form>
+                From: <input type="date" name="txtStartOrderDate" />
+                To: <input type="date" name="txtEndOrderDate" />
+                <input type="submit" value="Filter">
+            </form>
+        </div>
+
+        <div id="order-table">
+            <table id="orders" class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.OrderId)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.OrderDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.RequiredDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ShippedDate)
+                        </th>
+                        <th>
+                            Employee
+                        </th>
+                        <th>
+                            Customer
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Freight)
+                        </th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                               <a asp-controller="order" asp-action="detail" asp-route-id="@item.OrderId">
+                                    @Html.DisplayFor(modelItem => item.OrderId)
+                                </a>
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.OrderDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.RequiredDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ShippedDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Employee.LastName) @Html.DisplayFor(modelItem => item.Employee.FirstName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Customer.ContactName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Freight)
+                            </td>
+
+                            @*@{
+                                var status = "";
+                                var check = false;
+                            }
+                            @if(item.RequiredDate == null){
+                                status = "Cancel";
+                            }
+                            else if (DateTime.Now >= item.RequiredDate && item.ShippedDate != null)
+                            {
+                                status = "Complete";
+                            }
+                            else if (DateTime.Now < item.RequiredDate)
+                            {
+                                status = "Pending";
+                            }
+                            else if (item.RequiredDate == null && item.ShippedDate != null)
+                            {
+                                status = "Order canceled";
+                            }
+                            else
+                            {
+                                status = "Pending";
+                                check = true;
+                            }
+                            @if (!check)
+                            {
+                                <td>@status</td>
+                            }
+                            else
+                            {
+                                <td>Pending | <a href="/">Cancel</a></td>
+                            }*@
+
+                                @if (item.RequiredDate == null)
+                                {
+                                    <td><span style="color: red;">Canceled</span></td>
+                                }
+                                else if (item.ShippedDate <= DateTime.Now && item.RequiredDate != null)
+                                {
+                                    <td><span style="color: blue;">Completed</span></td>
+                                }
+                                else
+                                {
+                                    <td><span style="color: green;">Pending | <a asp-page-handler="CancelOrder" asp-route-id="@item.OrderId">Cancel</a></span></td>
+                                }
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+</div>

@@ -60,3 +60,8 @@ C:\Users\trung duc\Documents\Semester 8\PRN231\Code\PRN231Fall22\ProjectPRN231\P
 C:\Users\trung duc\Documents\Semester 8\PRN231\Code\PRN231Fall22\ProjectPRN231\ProjectPRN231\bin\Debug\net6.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 C:\Users\trung duc\Documents\Semester 8\PRN231\Code\PRN231Fall22\ProjectPRN231\ProjectPRN231\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll
 C:\Users\trung duc\Documents\Semester 8\PRN231\Code\PRN231Fall22\ProjectPRN231\ProjectPRN231\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\trung duc\Documents\Semester 8\PRN231\Code\PRN231Fall22\ProjectPRN231\ProjectPRN231\bin\Debug\net6.0\Microsoft.OpenApi.dll
+C:\Users\trung duc\Documents\Semester 8\PRN231\Code\PRN231Fall22\ProjectPRN231\ProjectPRN231\bin\Debug\net6.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\trung duc\Documents\Semester 8\PRN231\Code\PRN231Fall22\ProjectPRN231\ProjectPRN231\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\trung duc\Documents\Semester 8\PRN231\Code\PRN231Fall22\ProjectPRN231\ProjectPRN231\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\trung duc\Documents\Semester 8\PRN231\Code\PRN231Fall22\ProjectPRN231\ProjectPRN231\obj\Debug\net6.0\ProjectPRN231.MvcApplicationPartsAssemblyInfo.cs

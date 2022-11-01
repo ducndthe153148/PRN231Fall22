@@ -1,10 +1,40 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using ProjectPRN231.DataAccess;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Scheme = "Bearer",
+        BearerFormat = "JWT",
+        In = ParameterLocation.Header,
+        Name = "Authorization",
+        Description = "Bearer authentication with JWT",
+        Type = SecuritySchemeType.Http
+    });
+    options.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Id = "Bearer",
+                    Type = ReferenceType.SecurityScheme
+                }
+            },
+            new List<string>()
+        }
+    });
+});
+
 string MyAllowSpecificOrigin = "_myAllowSpecificOrigins";
 builder.Services.AddDbContext<PRN231DBContext>(opt => opt.UseSqlServer(
             builder.Configuration.GetConnectionString("MyStockDB")));
@@ -24,7 +54,6 @@ builder.Services.AddCors(options =>
     .AllowAnyHeader());
     
 });
-
 // Add Authentication:
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opt =>
 {
@@ -40,15 +69,39 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
     };
 });
 
+builder.Services.AddAuthorization(options =>
+{
+
+    options.AddPolicy("1",
+        authBuilder =>
+        {
+            authBuilder.RequireRole("1");
+        });
+    options.AddPolicy("2",
+        authBuilder =>
+        {
+            authBuilder.RequireRole("2");
+        });
+});
+
+
 var app = builder.Build();
 app.UseCors(MyAllowSpecificOrigin);
+
+
+// Swagger
+
+    app.UseSwagger();
+app.UseSwaggerUI();
+app.UseDeveloperExceptionPage();
+
 app.MapControllers();
 app.UseRouting();
+
 
 // Author 
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapGet("/", () => "Hello World!");
 
 app.Run();

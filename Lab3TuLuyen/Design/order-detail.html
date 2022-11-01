@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index</title>
+    <link href="css/style.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <script src="lib/jquery/dist/jquery.js"></script>
+</head>
+<body>
+    <div id="container">
+        <div id="header">
+            <div id="logo-admin">
+                Ecommerce Admin
+            </div>
+            <div id="banner-admin">
+                <ul>
+                    <li><a href="#">SignOut</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="content">
+            <div id="content-left">
+                <ul>
+                    <a href="dashboard.html"><li>Dashboard</li></a>
+                    <a href="order.html"><li>Orders</li></a>
+                    <a href="product.html"><li>Products</li></a>
+                    <a href="#"><li>Customers</li></a>
+                </ul>
+            </div>
+            <div id="content-right">
+                <div class="path-admin">ORDER DETAIL</b></div>
+                <div class="content-main">
+                    <div id="content-main-dashboard">
+                        <div id="order-table">
+                            <table id="orders">
+                                <tr>
+                                    <th>ProductId</th>
+                                    <th>ProductName</th>
+                                    <th>Quantity</th>
+                                    <th>UnitPrice</th>
+                                    <th>Discount</th>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="footer-admin">footer</div>
+    </div>
+    <script src="js/order.js"></script>
+    <script>
+        $(document).ready(function () {
+            let params = (new URL(document.location)).searchParams;
+            let id = params.get("orderId");
+            console.log(id);
+            //LoadOrderDetail(id);
+            $.ajax({
+                url: `${API_URL_BASE}/GetOrderdetail/${id}`,
+                type: 'GET',
+                success: function (rs) {
+                    $("#orders tbody tr").remove();
+                    var str = ` <tr>
+                                  <th>ProductId</th>
+                                  <th>ProductName</th>
+                                  <th>Quantity</th>
+                                  <th>UnitPrice</th>
+                                  <th>Discount($)</th>
+                                </tr>`;
+                    $.each(rs, function (i, item) {
+                        str += "<tr>";
+                        str += "<td scope='row'>" + item.productId + "</td>";
+                        str += "<td>" + item.product.productName + "</td>";
+                        str += "<td>" + item.quantity + "</td>";
+                        str += "<td>" + item.unitPrice + "</td>";
+                        str += "<td>" + item.discount + "</td>";
+                        str += "</tr>"
+                    });
+                    $("#orders").append(str);
+                }
+            });
+        })
+    </script>
+</body>
+</html>
