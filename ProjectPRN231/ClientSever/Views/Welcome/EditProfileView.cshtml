@@ -1,0 +1,68 @@
+﻿@{
+    //var useAccount = ViewData["useAccount"] as ClientSever.DTO.AccCusDTO;
+}
+<div id="content-left">
+    <h3 style="font-weight: normal;">Welcome, @ViewBag.Customer.ContactName</h3>
+    <h6>@ViewBag.Customer.ContactTitle</h6>
+    <ul>
+        <a href="/welcome/profile">
+        <li>Personal information</li></a>
+    </ul>
+    @if (Context.Session.GetString("role") == "1")
+    {
+
+    }
+    else
+    {
+        <h3>My order</h3>
+        <ul>
+            <a href="/OrderView/Index">
+            <li>All orders</li></a>
+            <a href="/OrderView/CanceledOrder">
+            <li>Canceled order</li></a>
+        </ul>
+    }
+</div>
+    <div id="content-right">
+        @if (ViewBag.Mess == "1")
+        {
+            <p>
+                Email existed!
+            </p>
+        }
+        <div class="path">Personal information</b></div>
+        <form method="post" action="/Welcome/EditUserProfile">
+            <div class="content-main">
+                <div id="profile-content">
+                    <div class="profile-content-col">
+                        <div>
+                            Company name: <br />
+                            <input type="text" required name="CompanyName" value="@ViewBag.Customer.CompanyName" />
+                        </div>
+                        <div>
+                            Contact name: <br />
+                            <input type="text" required name="ContactName" value="@ViewBag.Customer.ContactName" />
+                        </div>
+                        <div>
+                            <input type="submit" value="Edit Profile" />
+                        </div>
+                    </div>
+                    <div class="profile-content-col">
+                        <div>
+                            Company title: <br />
+                            <input type="text" name="CompanyTitle" required value="@ViewBag.Customer.ContactTitle" />
+                        </div>
+                        <div>
+                            Address: <br />
+                            <input type="text" required name="Address" value="@ViewBag.Customer.Address" />
+                        </div>
+                    </div>
+                    <div class="profile-content-col">
+                        <div>Email: <br />
+                            <input type="text" disabled required name="Email" value="@ViewBag.Account.Email" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>

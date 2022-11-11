@@ -1,0 +1,56 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+
+}
+
+<div id="content-left">
+    <ul>
+        <a href="/Dashboard/ShowData">
+        <li>Dashboard</li></a>
+        <a href="/Order/ManageOrder">
+        <li>Orders</li></a>
+        <a href="/Product/ManageProduct">
+        <li>Products</li></a>
+        <a href="#">
+        <li>Customers</li></a>
+    </ul>
+</div>
+
+<div id="content-right">
+    <div class="path">Product edit</b></div>
+    <form method="post" action="/Product/EditDetailProduct">
+        <input type="hidden" name="ProductId" value="@ViewBag.ProductEdit.ProductId"/>
+        <div class="content-main">
+            <div id="profile-content">
+                <div class="profile-content-col">
+                    <div>
+                        Product name: <br />
+                        <input type="text" required name="ProductName" value="@ViewBag.ProductEdit.ProductName" />
+                    </div>
+                    <div>
+                        Category name: <br />
+                        @*<input type="text" required name="CategoryId" value="@ViewBag.ProductEdit.Category.CategoryName" />*@
+                        <select id="ddlCategories" name="CategoryId" asp-items="@ViewBag.ListCategory">
+                            <option value="0">-- Select Category -- </option>
+                        </select>
+                    </div>
+                    <div>
+                        <input type="submit" value="Edit Product" />
+                    </div>
+                </div>
+                <div class="profile-content-col">
+                    <div>
+                        QuantityPerUnit: <br />
+                        <input type="text" name="QuantityPerUnit" required value="@ViewBag.ProductEdit.QuantityPerUnit" />
+                    </div>
+                    <div>
+                        UnitPrice: <br />
+                        <input type="number" required name="UnitPrice" value="@ViewBag.ProductEdit.UnitPrice" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

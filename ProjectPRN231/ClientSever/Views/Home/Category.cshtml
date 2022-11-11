@@ -3,12 +3,17 @@
 *@
 @{
     var products = ViewData["products"] as IList<Product>;
+    var categories = ViewData["categories"] as IList<Category>;
 }
 
 <div id="content-left">
-    <li><a asp-controller="order" asp-action="myorder">Category 1</a></li>
-    <li><a asp-controller="product" asp-action="ManageProduct">Category 2</a></li>
-    <li><a asp-controller="order" asp-action="manageorder">Category 3</a></li>
+    <ul>
+        <li><a asp-controller="Home" asp-action="Index">Category</a></li>
+        @foreach (var item in categories)
+        {   
+            <li><a asp-controller="Home" asp-action="Category" asp-route-id=@item.CategoryId>@item.CategoryName</a></li>
+        }
+    </ul>
 </div>
 <div id="content-right">
 <div class="content-main">

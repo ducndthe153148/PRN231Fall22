@@ -1,6 +1,8 @@
 ﻿using ClientSever.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.Net.Http;
+using System.Net.Http.Json;
 using System.Text.Json;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 
@@ -11,6 +13,11 @@ namespace ClientSever.Controllers
         public List<Models.CartSession> cart;
         public decimal? TotalMoney;
         public ClientSever.Models.Customer existedCustomer;
+        private IConfiguration _configuration;
+        public CartProductController(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
         public async Task<IActionResult> Index()
         {
             cart = new List<Models.CartSession>();
@@ -183,7 +190,8 @@ namespace ClientSever.Controllers
                     });
                 }
                 HttpContext.Session.Remove("CartList");
-                return RedirectToAction("Index", "Home");
+                // Redirec to invoice detail
+                return RedirectToAction("InvoiceDetail", "Order", new {id = orderId1});
             }
 
             //Guess
@@ -194,7 +202,7 @@ namespace ClientSever.Controllers
             var ContactName = Request.Form["ContactName"];
             var ContactTitle = Request.Form["ContactTitle"];
             var Address = Request.Form["Address"];
-
+            HttpContext.Session.SetString("ContactNameGuess", ContactName);
             string cusId = await CreateGuess(new GuessAdd
             {
                 Address = Address,
@@ -227,7 +235,7 @@ namespace ClientSever.Controllers
             }
             HttpContext.Session.Remove("CartList");
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("InvoiceDetail", "Order", new { id = orderId });
         }
 
         [HttpGet]
@@ -236,7 +244,7 @@ namespace ClientSever.Controllers
             List<ClientSever.Models.Customer> customerList = new List<ClientSever.Models.Customer>();
             using (var httpClient = new HttpClient())
             {
-                using (var response = await httpClient.GetAsync("http://localhost:5000/api/Customers/GetCustomers"))
+                using (var response = await httpClient.GetAsync(_configuration["apiBaseAddress"]+"Customers/GetCustomers"))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
                     customerList = JsonConvert.DeserializeObject<List<ClientSever.Models.Customer>>(apiResponse);
@@ -251,7 +259,7 @@ namespace ClientSever.Controllers
             List<ClientSever.Models.Product> products = new List<ClientSever.Models.Product>();
             using (var httpClient = new HttpClient())
             {
-                using (var response = await httpClient.GetAsync("http://localhost:5000/api/Products/getAllProduct"))
+                using (var response = await httpClient.GetAsync(_configuration["apiBaseAddress"]+"Products/getAllProduct"))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
                     products = JsonConvert.DeserializeObject<List<ClientSever.Models.Product>>(apiResponse);
@@ -266,7 +274,7 @@ namespace ClientSever.Controllers
             string apiResponse = "";
             using (var httpClient = new HttpClient())
             {
-                using (var response = await httpClient.PostAsJsonAsync<OrderAdd>("http://localhost:5000/api/Order", order))
+                using (var response = await httpClient.PostAsJsonAsync<OrderAdd>(_configuration["apiBaseAddress"]+"Order", order))
                 {
                     apiResponse = await response.Content.ReadAsStringAsync();
                 }
@@ -280,7 +288,7 @@ namespace ClientSever.Controllers
             string apiResponse = "";
             using (var httpClient = new HttpClient())
             {
-                using (var response = await httpClient.PostAsJsonAsync<OrderDetailAdd>("http://localhost:5000/api/OrderDetails", order))
+                using (var response = await httpClient.PostAsJsonAsync<OrderDetailAdd>(_configuration["apiBaseAddress"]+"OrderDetails", order))
                 {
                     apiResponse = await response.Content.ReadAsStringAsync();
                 }
@@ -293,7 +301,7 @@ namespace ClientSever.Controllers
             string apiResponse = "";
             using (var httpClient = new HttpClient())
             {
-                using (var response = await httpClient.PostAsJsonAsync<GuessAdd>("http://localhost:5000/api/Customers", order))
+                using (var response = await httpClient.PostAsJsonAsync<GuessAdd>(_configuration["apiBaseAddress"]+"Customers", order))
                 {
                     apiResponse = await response.Content.ReadAsStringAsync();
                 }

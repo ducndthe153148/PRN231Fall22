@@ -1,4 +1,5 @@
-﻿@model Account
+﻿@model ClientSever.Models.Account
+
 @{
     var checkLogin = ViewData["checklogin"];
 }
@@ -9,22 +10,34 @@
             <span><a asp-controller="welcome" asp-action="signin" style="color: red;">SIGN IN</a></span>
         </div>
         <div id="form-content">
-            <form asp-controller="welcome" asp-action="CheckSignIn" method="post">
+            @using (Html.BeginForm("CheckSignIn", "Welcome", FormMethod.Post))
+            {
+            @*<form asp-controller="welcome" asp-action="CheckSignIn" method="post">*@
                 <div>
                     <label asp-for="Email">Email<span style="color: red;">*</span></label><br />
-                    <input asp-for="Email" type="Text"/><br />
+                    @*<input asp-for="Email" type="Text"/><br />
+                    <span asp-validation-for="Email" class="text-danger"></span>*@
+
+                    @Html.TextBoxFor(x=>x.Email)
+                    <span style="color: red;">@Html.ValidationMessageFor(x => x.Email)</span>
                 </div>
-                @*<span class="msg-error">Email is required</span><br />*@
                 <div>
                     <label asp-for="Password">Password<span style="color: red;">*</span></label><br />
-                    <input asp-for="Password" type="password" /><br />
+                    @*<input asp-for="Password" type="password" /><br />
+                    <span asp-validation-for="Password" class="text-danger"></span>*@
+                    @Html.TextBoxFor(x=>x.Password)
+                    <span style="color: red;">@Html.ValidationMessageFor(x => x.Password)</span>
                 </div>
+                @if(ViewBag.Mess == "1") {
+                    <span style="color: red;"><p>Login Failed. Check your account</p></span>
+                }
                 @*<span class="msg-error">Password is required</span><br />*@
-                <div><a href="forgot.html">Forgot password?</a></div>
+                <div><a href="/Welcome/ForgotPasswordView">Forgot password?</a></div>
                 <input type="submit" value="SIGN IN" /><br />
                 <input type="button" value="FACEBOOK LOGIN" style="background-color: #3b5998;" /><br />
                 <input type="button" value="ZALO LOGIN" style="background-color: #009dff;margin-bottom: 30px;" />
-            </form>
+            @*</form>*@
+            }
         </div>
     </div>
 </div>

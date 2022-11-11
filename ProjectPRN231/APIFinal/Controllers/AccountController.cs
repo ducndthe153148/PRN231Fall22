@@ -24,6 +24,13 @@ namespace APIFinal.Controllers
             _configuration = configuration;
         }
 
+        [HttpGet("[action]")]
+        public async Task<ActionResult<IEnumerable<Account>>> GetAllAccounts()
+        {
+            return await _context.Accounts.ToListAsync();
+        }
+
+
         // Add authorize later 
         //http://localhost:5000/api/Account/GetPersonalAccount/1
         //[Authorize]
@@ -74,6 +81,16 @@ namespace APIFinal.Controllers
                 return NoContent();
             }
             return Ok(accCusDTO);
+        }
+        [HttpGet("[action]/{email}")]
+        public async Task<IActionResult> CheckEmail(string email)
+        {
+            var A = await _context.Accounts.Where(a => a.Email == email)
+                .Include(a => a.Customer).FirstOrDefaultAsync();
+            if(A == null)
+            {
+                return BadRequest();
+            } else { return Ok(A); }
         }
 
         [AllowAnonymous]
@@ -155,6 +172,21 @@ namespace APIFinal.Controllers
             catch (Exception ex)
             {
                 return BadRequest("Fail at running");
+            }
+        }
+        [HttpPut("[action]")]
+        public async Task<IActionResult> ChangePassword(Account edited)
+        {
+            try
+            {
+                var account = await _context.Accounts.Where(a => a.Email == edited.Email).FirstOrDefaultAsync();
+                account.Password = edited.Password;
+                await _context.SaveChangesAsync();
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Fail");
             }
         }
         private string RandomString(int length)

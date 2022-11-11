@@ -1,0 +1,86 @@
+﻿<div id="content" style="display: flex; justify-content: center;">
+    <div class="card">
+        @*<form method="post" action="/Order/ExportPdf">*@
+            <div class="card-body mx-4">
+                @if (ViewBag.EachOrder != null)
+                {
+                    <div class="container">
+                        <p class="my-5 mx-5" style="font-size: 30px;">Thank for your purchase</p>
+                        <div class="row">
+                            <ul class="list-unstyled">
+                                @if (ViewBag.Account != null)
+                                {
+                                    <li class="text-black">@ViewBag.Account.Email</li>
+                                }
+                                else
+                                {
+                                    <li class="text-black">@ViewBag.ContactName</li>
+                                }
+                                <li class="text-muted mt-1"><span class="text-black">Invoice</span> @ViewBag.EachOrder.OrderId </li>
+                                <li class="text-black mt-1">@ViewBag.EachOrder.OrderDate</li>
+                            </ul>
+                            <hr>
+                        </div>
+                        @{
+                            decimal total = 0;
+                        }
+                        <div style="margin-top: 20px;" class="row">
+                            <div class="col-sm-7">Name</div>
+                            <div class="col-sm-3">Quantity</div>
+                            <div class="col-sm-2">Price</div>
+                            <hr>
+                        </div>
+                        @foreach (var i in ViewBag.EachOrder.OrderDetails)
+                        {
+                            total += i.Quantity * i.UnitPrice;
+                            <div class="row">
+                                <div class="col-sm-8">
+                                    <p>@i.Product.ProductName</p>
+                                </div>
+                                <div class="col-sm-2">
+                                    <p>@i.Quantity</p>
+                                </div>
+                                <div class="col-sm-2">
+                                    <p class="float-end">
+                                        @i.UnitPrice
+                                    </p>
+                                </div>
+                                <hr>
+                            </div>
+                        }
+
+                        <div class="row text-black">
+
+                            <div class="col-xl-12">
+                                <p class="float-end fw-bold">
+                                    Total: @total
+                                </p>
+                            </div>
+                            <hr style="border: 2px solid black;">
+                        </div>
+                        <div class="text-center" style="margin-top: 90px;">
+                            @*Check Account, Have account => export + send email
+                        No Account => Export *@
+                            @*<a href="/Order/ExportToExcel"><u class="text-info">Export to PDF</u></a>
+                            <button class="btn btn-primary" id="btnGenerate">Generate PDF</button>*@
+                            <button class="btn btn-primary" id="btnPrint">Export to PDF</button>
+                        </div>
+
+                    </div>
+                }
+            </div>
+        @*</form>*@
+    </div>
+</div>
+
+<script type="text/javascript">
+    $("#btnGenerate").click(function(){
+        var html = $("#content").html();
+        html = html.replace(/</g,"start").replace(/>/g,"end");
+        window.open("/Order/ExportToExcel?html="+html,"_blank");
+    });
+    $("#btnPrint").click(function(){
+        window.print();
+        window.open("/Order/ExportToExcel")
+    });
+</script>

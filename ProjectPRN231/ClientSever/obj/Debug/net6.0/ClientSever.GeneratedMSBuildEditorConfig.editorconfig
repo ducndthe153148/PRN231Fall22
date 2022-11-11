@@ -11,12 +11,16 @@ build_property.RootNamespace = ClientSever
 build_property.ProjectDir = C:\Users\trung duc\Documents\Semester 8\PRN231\Code\PRN231Fall22\ProjectPRN231\ClientSever\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
-build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = true
 build_property.MSBuildProjectDirectory = C:\Users\trung duc\Documents\Semester 8\PRN231\Code\PRN231Fall22\ProjectPRN231\ClientSever
 build_property._RazorSourceGeneratorDebug = 
 
 [C:/Users/trung duc/Documents/Semester 8/PRN231/Code/PRN231Fall22/ProjectPRN231/ClientSever/Views/CartProduct/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FydFByb2R1Y3RcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/trung duc/Documents/Semester 8/PRN231/Code/PRN231Fall22/ProjectPRN231/ClientSever/Views/Dashboard/ShowData.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGFzaGJvYXJkXFNob3dEYXRhLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/trung duc/Documents/Semester 8/PRN231/Code/PRN231Fall22/ProjectPRN231/ClientSever/Views/Home/Category.cshtml]
@@ -47,12 +51,24 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJcRGV0YWlsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/trung duc/Documents/Semester 8/PRN231/Code/PRN231Fall22/ProjectPRN231/ClientSever/Views/Order/InvoiceDetail.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJcSW52b2ljZURldGFpbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/trung duc/Documents/Semester 8/PRN231/Code/PRN231Fall22/ProjectPRN231/ClientSever/Views/Order/ManageOrder.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJcTWFuYWdlT3JkZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/trung duc/Documents/Semester 8/PRN231/Code/PRN231Fall22/ProjectPRN231/ClientSever/Views/Order/MyOrder.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJcTXlPcmRlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/trung duc/Documents/Semester 8/PRN231/Code/PRN231Fall22/ProjectPRN231/ClientSever/Views/Product/DetailProduct.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdFxEZXRhaWxQcm9kdWN0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/trung duc/Documents/Semester 8/PRN231/Code/PRN231Fall22/ProjectPRN231/ClientSever/Views/Product/EditView.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdFxFZGl0Vmlldy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/trung duc/Documents/Semester 8/PRN231/Code/PRN231Fall22/ProjectPRN231/ClientSever/Views/Product/ManageProduct.cshtml]
@@ -67,12 +83,24 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/trung duc/Documents/Semester 8/PRN231/Code/PRN231Fall22/ProjectPRN231/ClientSever/Views/Welcome/EditProfileView.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2VsY29tZVxFZGl0UHJvZmlsZVZpZXcuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/trung duc/Documents/Semester 8/PRN231/Code/PRN231Fall22/ProjectPRN231/ClientSever/Views/Welcome/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2VsY29tZVxFcnJvci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/trung duc/Documents/Semester 8/PRN231/Code/PRN231Fall22/ProjectPRN231/ClientSever/Views/Welcome/ForgotPasswordView.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2VsY29tZVxGb3Jnb3RQYXNzd29yZFZpZXcuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/trung duc/Documents/Semester 8/PRN231/Code/PRN231Fall22/ProjectPRN231/ClientSever/Views/Welcome/Profile.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2VsY29tZVxQcm9maWxlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/trung duc/Documents/Semester 8/PRN231/Code/PRN231Fall22/ProjectPRN231/ClientSever/Views/Welcome/ResetPassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2VsY29tZVxSZXNldFBhc3N3b3JkLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/trung duc/Documents/Semester 8/PRN231/Code/PRN231Fall22/ProjectPRN231/ClientSever/Views/Welcome/SignIn.cshtml]

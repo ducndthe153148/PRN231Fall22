@@ -6,7 +6,7 @@
 
 <div id="content-left">
     <ul>
-        <a href="dashboard.html">
+        <a href="/Dashboard/ShowData">
         <li>Dashboard</li></a>
         <a href="/Order/ManageOrder">
         <li>Orders</li></a>
@@ -22,19 +22,23 @@
     ORDERS LIST
 </div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <div class="content-main">
     <div id="content-main-dashboard">
         <div id="order-title">
             <b>Filter by Order date:</b>
-            <form>
+            <form asp-controller="Order" asp-action="ManageOrder" method="post">
+                <input type="hidden" name="orderId"/>
                 From: <input type="date" name="txtStartOrderDate" />
                 To: <input type="date" name="txtEndOrderDate" />
                 <input type="submit" value="Filter">
             </form>
         </div>
+            <div id="product-title-3" style="width: 20%;">
+                @*<a href="create-product.html">Create a new Product</a>*@
+                <form action="">
+                    <a href="/Order/ExportToExcel">Export .xls or .xlsx File</a>
+                </form>
+            </div>
 
         <div id="order-table">
             <table id="orders" class="table">
@@ -69,7 +73,7 @@
                     {
                         <tr>
                             <td>
-                               <a asp-controller="order" asp-action="detail" asp-route-id="@item.OrderId">
+                               <a asp-controller="order" asp-action="Detail" asp-route-id="@item.OrderId">
                                     @Html.DisplayFor(modelItem => item.OrderId)
                                 </a>
                             </td>
@@ -92,39 +96,6 @@
                                 @Html.DisplayFor(modelItem => item.Freight)
                             </td>
 
-                            @*@{
-                                var status = "";
-                                var check = false;
-                            }
-                            @if(item.RequiredDate == null){
-                                status = "Cancel";
-                            }
-                            else if (DateTime.Now >= item.RequiredDate && item.ShippedDate != null)
-                            {
-                                status = "Complete";
-                            }
-                            else if (DateTime.Now < item.RequiredDate)
-                            {
-                                status = "Pending";
-                            }
-                            else if (item.RequiredDate == null && item.ShippedDate != null)
-                            {
-                                status = "Order canceled";
-                            }
-                            else
-                            {
-                                status = "Pending";
-                                check = true;
-                            }
-                            @if (!check)
-                            {
-                                <td>@status</td>
-                            }
-                            else
-                            {
-                                <td>Pending | <a href="/">Cancel</a></td>
-                            }*@
-
                                 @if (item.RequiredDate == null)
                                 {
                                     <td><span style="color: red;">Canceled</span></td>
@@ -135,7 +106,7 @@
                                 }
                                 else
                                 {
-                                    <td><span style="color: green;">Pending | <a asp-page-handler="CancelOrder" asp-route-id="@item.OrderId">Cancel</a></span></td>
+                                    <td><span style="color: green;">Pending | <a asp-action="CancelOrder" asp-route-id="@item.OrderId">Cancel</a></span></td>
                                 }
                         </tr>
                     }

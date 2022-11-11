@@ -32,7 +32,7 @@
         }
 
     </div>
-    <input type="hidden" value="@ViewBag.TotalMoney" name="totalCart" />
+    
     <div id="cart-summary">
         <div id="cart-summary-content">Total amount: <span style="color:red">@ViewBag.TotalMoney $</span></div>
     </div>
@@ -43,6 +43,7 @@
         </div>
     }
     <form method="post" action="/CartProduct/Order">
+        <input type="hidden" value="@ViewBag.TotalMoney" name="totalCart" />
         <div id="customer-info">
             <div id="customer-info-content">
                 <h3>CUSTOMER INFORMATION:</h3>

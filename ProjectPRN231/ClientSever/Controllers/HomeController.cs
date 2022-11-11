@@ -1,6 +1,8 @@
 ﻿using ClientSever.Models;
+using ClientSever.Utility;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.Net.Http;
 using System.Text.Json;
 
 namespace ClientSever.Controllers
@@ -9,33 +11,36 @@ namespace ClientSever.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         List<ClientSever.Models.Product> products;
-        public HomeController(ILogger<HomeController> logger)
+        private IConfiguration _configuration;
+        public HomeController(ILogger<HomeController> logger, IConfiguration configuration)
         {
             _logger = logger;
+            _configuration = configuration;
         }
-        readonly string apiBaseAddress = "http://localhost:5000/api/";
         public async Task<ActionResult> Index()
         {
             IEnumerable<Product> hotProduct = null;
             IEnumerable<Product> bestSaleProduct = null;
             IEnumerable<Product> fourNewProduct = null;
+            IEnumerable<Category> categories = null;
             if (HttpContext.Session.GetString("user") != null)
             {
                 var user = HttpContext.Session.GetString("user");
             }
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri(apiBaseAddress);
+                client.BaseAddress = new Uri(_configuration["apiBaseAddress"]);
 
                 var result = await client.GetAsync("products/getfourhot");
                 var result1 = await client.GetAsync("products/getFourBestSale");
                 var result2 = await client.GetAsync("products/getFourNew");
-
+                var resultCat = await client.GetAsync("Categories/ListCategory");
                 if (result.IsSuccessStatusCode && result1.IsSuccessStatusCode)
                 {
                     hotProduct = await result.Content.ReadAsAsync<IList<Product>>();
                     bestSaleProduct = await result1.Content.ReadAsAsync<IList<Product>>();
                     fourNewProduct = await result2.Content.ReadAsAsync<IList<Product>>();
+                    categories = await resultCat.Content.ReadAsAsync<IList<Category>>();
                 }
                 else
                 {
@@ -48,6 +53,7 @@ namespace ClientSever.Controllers
             ViewData["hotProduct"] = hotProduct;
             ViewData["bestSaleProduct"] = bestSaleProduct;
             ViewData["fourNewProduct"] = fourNewProduct;
+            ViewData["categories"] = categories;
 
             return View();
         }
@@ -57,7 +63,7 @@ namespace ClientSever.Controllers
 
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri(apiBaseAddress);
+                client.BaseAddress = new Uri(_configuration["apiBaseAddress"]);
                 string url = "Products/GetByProdId/" + id;
                 var result = await client.GetAsync(url);
 
@@ -78,15 +84,17 @@ namespace ClientSever.Controllers
         public async Task<ActionResult> Category(int id)
         {
             IEnumerable<Product> products = null;
+            IEnumerable<Category> categories = null;
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri(apiBaseAddress);
+                client.BaseAddress = new Uri(_configuration["apiBaseAddress"]);
                 string urlUse = "Products/filterCategory/" + id;
                 var result = await client.GetAsync(urlUse);
-
+                var resultCat = await client.GetAsync("Categories/ListCategory");
                 if (result.IsSuccessStatusCode)
                 {
                     products = await result.Content.ReadAsAsync<IList<Product>>();
+                    categories = await resultCat.Content.ReadAsAsync<IList<Category>>();
                 }
                 else
                 {
@@ -94,6 +102,7 @@ namespace ClientSever.Controllers
                 }
             }
             ViewData["products"] = products;
+            ViewData["categories"] = categories;
             return View();
         }
         public async Task<ActionResult> LeftNav()
@@ -185,7 +194,7 @@ namespace ClientSever.Controllers
             products = new List<ClientSever.Models.Product>();
             using (var httpClient = new HttpClient())
             {
-                using (var response = await httpClient.GetAsync("http://localhost:5000/api/Products/getAllProduct"))
+                using (var response = await httpClient.GetAsync(_configuration["apiBaseAddress"] + "Products/getAllProduct"))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
                     products = JsonConvert.DeserializeObject<List<ClientSever.Models.Product>>(apiResponse);

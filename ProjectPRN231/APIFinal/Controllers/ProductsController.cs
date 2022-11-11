@@ -7,6 +7,7 @@ using System.Numerics;
 using System.Security.Claims;
 using APIFinal.Service;
 using APIFinal.DTO;
+using System.Linq.Expressions;
 
 namespace APIFinal.Controllers
 {
@@ -230,28 +231,28 @@ namespace APIFinal.Controllers
             }
         }
 
-        //[Authorize("1")]
-        [HttpPut("edit")]
-        public async Task<IActionResult> Edit(Product E)
+        [HttpPut("edit/{id}")]
+        public async Task<IActionResult> Edit(ProductEdit product)
         {
-            var product = await _context.Products.Where(e => e.ProductId == E.ProductId)
-                .AsNoTracking().FirstOrDefaultAsync();
-            if (product != null)
+            //var product = await _context.Products.Where(e => e.ProductId == E.ProductId)
+            //    .AsNoTracking().FirstOrDefaultAsync();
+            var edited = await _context.Products.SingleOrDefaultAsync(o => o.ProductId == product.ProductId);
+            if (edited == null)
             {
-                if (ModelState.IsValid)
-                {
-                    _context.Update(product);
-                    _context.SaveChanges();
-                    return AcceptedAtAction("edit", new { id = E.ProductId }, E);
-                }
-                else
-                {
-                    return BadRequest(E.ProductId);
-                }
+                return BadRequest();
             }
-            else
+            try
             {
-                return NotFound();
+                edited.ProductName = product.ProductName;
+                edited.CategoryId = product.CategoryId;
+                edited.QuantityPerUnit = product.QuantityPerUnit;
+                edited.UnitPrice = product.UnitPrice;
+                await _context.SaveChangesAsync();
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest();
             }
 
         }

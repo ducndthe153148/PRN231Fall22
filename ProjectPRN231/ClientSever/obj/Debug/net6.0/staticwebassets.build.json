@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "LtnL53EJq9PMtN7a6KZs3Z+YYPn4iqMMTvVY3EUxoWU=",
+  "Hash": "dP3J6+v64M/tTpzWkaux0MPvpm63Lb1kMxbI8b4pr/0=",
   "Source": "ClientSever",
   "BasePath": "_content/ClientSever",
   "Mode": "Default",
@@ -85,6 +85,23 @@
       "OriginalItemSpec": "wwwroot\\css\\2.jpg"
     },
     {
+      "Identity": "C:\\Users\\trung duc\\Documents\\Semester 8\\PRN231\\Code\\PRN231Fall22\\ProjectPRN231\\ClientSever\\wwwroot\\css\\error.css",
+      "SourceId": "ClientSever",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\trung duc\\Documents\\Semester 8\\PRN231\\Code\\PRN231Fall22\\ProjectPRN231\\ClientSever\\wwwroot\\",
+      "BasePath": "_content/ClientSever",
+      "RelativePath": "css/error.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\error.css"
+    },
+    {
       "Identity": "C:\\Users\\trung duc\\Documents\\Semester 8\\PRN231\\Code\\PRN231Fall22\\ProjectPRN231\\ClientSever\\wwwroot\\css\\site.css",
       "SourceId": "ClientSever",
       "SourceType": "Discovered",
@@ -151,6 +168,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\logo.png"
+    },
+    {
+      "Identity": "C:\\Users\\trung duc\\Documents\\Semester 8\\PRN231\\Code\\PRN231Fall22\\ProjectPRN231\\ClientSever\\wwwroot\\js\\datatables-simple-demo.js",
+      "SourceId": "ClientSever",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\trung duc\\Documents\\Semester 8\\PRN231\\Code\\PRN231Fall22\\ProjectPRN231\\ClientSever\\wwwroot\\",
+      "BasePath": "_content/ClientSever",
+      "RelativePath": "js/datatables-simple-demo.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\datatables-simple-demo.js"
     },
     {
       "Identity": "C:\\Users\\trung duc\\Documents\\Semester 8\\PRN231\\Code\\PRN231Fall22\\ProjectPRN231\\ClientSever\\wwwroot\\js\\site.js",

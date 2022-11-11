@@ -27,4 +27,19 @@ namespace ClientSever.Models
         public string ContactTitle { get; set; }
         public string Address { get; set; }
     }
+    public class NewCustomer
+    {
+        public int Total { get; set; }
+        public int New { get; set; }
+    }
+    public class CustomerEdit
+    {
+        public string CustomerId { get; set; }
+        public string CompanyName { get; set; }
+        public string ContactName { get; set; }
+        public string ContactTitle { get; set; }
+        public string Address { get; set; }
+
+        //public string Email { get; set; }
+    }
 }

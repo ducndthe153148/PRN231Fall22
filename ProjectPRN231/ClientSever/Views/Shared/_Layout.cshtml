@@ -8,23 +8,33 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/ClientSever.styles.css" asp-append-version="true" />
+
+    <script src="/lib/jquery/dist/jquery.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
 </head>
 <body>
     <div id="container">
         <div id="header">
-            <div id="logo">
-                <a href="/Home/Index"><img src="~/images/logo.png" /></a>
-            </div>
+            @if (Context.Session.GetString("role") == "1")
+            {
+                <div id="logo">
+                    <a href="/Dashboard/ShowData"><img src="~/images/logo.png" /></a>
+                </div>
+            } else {
+                <div id="logo">
+                    <a href="/Home/Index"><img src="~/images/logo.png" /></a>
+                </div>
+            }
             <div id="banner">
                 <ul>
                     @if (Context.Session.GetString("CartList") != null)
                     {
                         var option = new JsonSerializerOptions()
-                {
-                    AllowTrailingCommas = true,
-                    WriteIndented = true,
-                    ReadCommentHandling = JsonCommentHandling.Skip
-                };
+                        {
+                            AllowTrailingCommas = true,
+                            WriteIndented = true,
+                            ReadCommentHandling = JsonCommentHandling.Skip
+                        };
                         var acc = JsonSerializer.Deserialize<List<ClientSever.Models.CartSession>>(Context.Session.GetString("CartList"), option);
                         var total = 0;
                         @foreach (var item in acc)
@@ -33,7 +43,7 @@
                         }
                         <li><a href="/CartProduct/Index">Cart: @total</a></li>
                     }
-                    else
+                    else if (Context.Session.GetString("role") != "1")
                     {
                         <li><a href="/CartProduct/Index">Cart: 0</a></li>
                     }
@@ -58,9 +68,12 @@
 
         <div id="footer-admin">footer</div>
     </div>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/datatables-simple-demo.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

@@ -1,9 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\lib",
     "\\lib\\jquery",
     "\\lib\\jquery\\dist"
   ],
+  "SelectedNode": "\\index.html",
   "PreviewInSolutionExplorer": false
 }

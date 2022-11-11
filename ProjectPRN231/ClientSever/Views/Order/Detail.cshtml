@@ -1,7 +1,61 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+
 }
 
-ABCD
+<div id="content-left">
+    <ul>
+        <a href="/Dashboard/ShowData">
+        <li>Dashboard</li></a>
+        <a href="/Order/ManageOrder">
+        <li>Orders</li></a>
+        <a href="/Product/ManageProduct">
+        <li>Products</li></a>
+        <a href="#">
+        <li>Customers</li></a>
+    </ul>
+</div>
+
+
+<div id="content-right">
+    <div class="path">LIST ORDERS</b></div>
+    <div class="content-main">
+        <div id="profile-content-order">
+            @if (ViewBag.EachOrder != null)
+            {
+                    <div>
+                        <div class="profile-order-title">
+                            <div class="profile-order-title-left">
+                            <div>Order creation date: @ViewBag.EachOrder.OrderDate</div>
+                            <div>Order: <a href="#">#@ViewBag.EachOrder.OrderId</a></div>
+                            </div>
+                            <div class="profile-order-title-right">
+                            @if (ViewBag.EachOrder.RequiredDate == null)
+                                {
+                                    <span style="color: red;">Canceled</span>
+                                }
+                            else if (ViewBag.EachOrder.ShippedDate <= DateTime.Now && ViewBag.EachOrder.RequiredDate != null)
+                                {
+                                    <span style="color: blue;">Completed</span>
+                                }
+                                else
+                                {
+                                <span style="color: green;">Pending | <a asp-action="CancelOrder" asp-route-id="@ViewBag.EachOrder.OrderId">Cancel</a></span>
+                                }
+                            </div>
+                        </div>
+                    @foreach (var i in ViewBag.EachOrder.OrderDetails)
+                        {
+                            <div class="profile-order-content">
+                                <div class="profile-order-content-col1">
+                                    <a href="detail.html"><img src="~/images/1.jpg" width="100%" /></a>
+                                </div>
+                                <div class="profile-order-content-col2">@i.Product.ProductName</div>
+                                <div class="profile-order-content-col3">Quantity: @i.Quantity</div>
+                                <div class="profile-order-content-col4">@(i.UnitPrice * i.Quantity) $</div>
+                            </div>
+                        }
+                    </div>
+            }
+        </div>
+    </div>
+</div>

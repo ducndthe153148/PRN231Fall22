@@ -52,7 +52,6 @@ builder.Services.AddCors(options =>
     .AllowAnyOrigin()
     .AllowAnyMethod()
     .AllowAnyHeader());
-
 });
 // Add Authentication:
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opt =>

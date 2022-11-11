@@ -1,0 +1,48 @@
+﻿
+@{
+    var product = ViewData["product"] as ClientSever.Models.Product;
+}
+<div id="content-left">
+    <ul>
+        <a href="/Dashboard/ShowData">
+        <li>Dashboard</li></a>
+        <a href="/Order/ManageOrder">
+        <li>Orders</li></a>
+        <a href="/Product/ManageProduct">
+        <li>Products</li></a>
+        <a href="#">
+        <li>Customers</li></a>
+    </ul>
+</div>
+
+<div id="content-right">
+    <div class="path">Product information</b>
+    </div>
+
+    @if (ViewBag.Message == "1")
+    {
+        <span style="color: blue; margin-left 20px;">Edit Product Successfully</span>
+    }
+    else if (ViewBag.Message == "2")
+    {
+        <span style="color: blue; margin-left 20px;">Edit Fail</span>
+    }
+    
+    <div class="content-main">
+        
+        <div id="profile-content">
+            
+            <div class="profile-content-col">
+                <div>Product name: <br />@product.ProductName</div>
+                <div>Category name: <br />@product.Category.CategoryName</div>
+                <div>
+                    <a class="btn btn-primary btn-lg" asp-controller="Product" asp-action="EditView" asp-route-id="@product.ProductId">Edit Product</a>
+                </div>
+            </div>
+            <div class="profile-content-col">
+                <div>QuantityPerUnit <br />@product.QuantityPerUnit</div>
+                <div>UnitPrice: <br />@product.UnitPrice</div>
+            </div>
+        </div>
+    </div>
+</div>

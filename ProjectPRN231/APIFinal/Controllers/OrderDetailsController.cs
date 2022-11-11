@@ -18,24 +18,28 @@ namespace APIFinal.Controllers
         [HttpPost]
         public async Task<ActionResult> PostOrderDetail(OrderDetailAdd orderDetail)
         {
-
-            _context.OrderDetails.Add(new OrderDetail
-            {
-                OrderId = orderDetail.OrderId,
-                Discount = orderDetail.Discount,
-                ProductId = orderDetail.ProductId,
-                Quantity = orderDetail.Quantity,
-                UnitPrice = orderDetail.UnitPrice
-            });
             try
             {
+                _context.OrderDetails.Add(new OrderDetail
+                {
+                    OrderId = orderDetail.OrderId,
+                    Discount = orderDetail.Discount,
+                    ProductId = orderDetail.ProductId,
+                    Quantity = orderDetail.Quantity,
+                    UnitPrice = orderDetail.UnitPrice
+                });
                 await _context.SaveChangesAsync();
+                return Ok();
             }
             catch (Exception ex)
             {
                 return BadRequest(ex);
             }
 
+        }
+        [HttpGet]
+        public async Task<IActionResult> GetMonthlyFreight()
+        {
             return Ok();
         }
     }

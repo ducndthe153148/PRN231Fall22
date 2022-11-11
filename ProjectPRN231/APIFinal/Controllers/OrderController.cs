@@ -27,7 +27,7 @@ namespace APIFinal.Controllers
             try
             {
                 var O = await _context.Customers
-                    .Include(o => o.Orders)
+                    .Include(o => o.Orders.OrderByDescending(o => o.OrderDate))
                     .ThenInclude(a => a.OrderDetails)
                     .ThenInclude(p => p.Product)
                     .SingleOrDefaultAsync(i => i.CustomerId == customerId);
@@ -41,13 +41,33 @@ namespace APIFinal.Controllers
             {
                 return BadRequest(E);
             }
+        }
 
+        [HttpGet("[action]/{orderId}")]
+        public async Task<ActionResult<Customer>> GetOrderByOrderId(int orderId)
+        {
+            try
+            {
+                var O = await _context.Orders
+                    .Include(o => o.OrderDetails)
+                    .ThenInclude(p => p.Product)
+                    .SingleOrDefaultAsync(i => i.OrderId == orderId);
+                if (O == null)
+                {
+                    return NoContent();
+                }
+                return Ok(O);
+            }
+            catch (Exception E)
+            {
+                return BadRequest(E);
+            }
         }
 
         // Admin autho
         // Get all order
         // http://localhost:5000/api/Order/GetOrders
-        // [Authorize("1")]
+        [Authorize()]
         [HttpGet("[action]")]
         public async Task<ActionResult<IEnumerable<Customer>>> GetOrders()
         {
@@ -57,7 +77,7 @@ namespace APIFinal.Controllers
                     .OrderByDescending(o => o.OrderDate)
                     .Include(o => o.Employee)
                     .Include(o => o.Customer)
-                    .Take(10)
+                    .Take(20)
                     .ToListAsync();
                 if (O == null)
                 {
@@ -71,6 +91,12 @@ namespace APIFinal.Controllers
             }
 
         }
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult<IEnumerable<Order>>> GetAllOrders()
+        {
+            return await _context.Orders.ToListAsync();
+        }
         // Admin autho
         // Get order between two OrderDate
         // http://localhost:5000/api/Order/Between
@@ -83,6 +109,29 @@ namespace APIFinal.Controllers
             {
                 var O = await _context.Orders
                     .OrderByDescending(o => o.OrderDate)
+                    .ToListAsync();
+                if (O == null)
+                {
+                    return NoContent();
+                }
+                return Ok(O);
+            }
+            catch (Exception E)
+            {
+                return BadRequest(E);
+            }
+
+        }
+
+        [HttpGet("[action]/{from}/{to}")]
+        public async Task<ActionResult<IEnumerable<Customer>>> FilterDate(DateTime from, DateTime to)
+        {
+            try
+            {
+                var O = await _context.Orders
+                    .Where(o => o.OrderDate >= from && o.OrderDate <= to)
+                    .Include(o => o.Employee)
+                    .Include(o => o.Customer)
                     .ToListAsync();
                 if (O == null)
                 {
@@ -126,6 +175,46 @@ namespace APIFinal.Controllers
             {
                 return NotFound(ex);
             }
+        }
+
+        [HttpPut("[action]/{orderId}")]
+        public async Task<IActionResult> CancelOrder(int orderId)
+        {
+            try
+            {
+                var O = await _context.Orders
+                    .FirstOrDefaultAsync(o => o.OrderId == orderId);
+                if (O == null)
+                {
+                    return NoContent();
+                }
+                O.RequiredDate = null;
+                _context.Update(O);
+                await _context.SaveChangesAsync();
+                return Ok(O);
+            }
+            catch (Exception E)
+            {
+                return BadRequest(E);
+            }
+        }
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult<int>> GetYear()
+        {
+            List<int> listYear ;
+            try
+            {
+                listYear = _context.Orders
+                    //.GroupBy(x => x.OrderDate)
+                    .Select(x => x.OrderDate.Value.Year).Distinct().ToList();
+
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex);
+            }
+            return Ok(listYear);
         }
     }
 }
