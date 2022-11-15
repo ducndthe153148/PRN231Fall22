@@ -23,9 +23,9 @@
                 </div>
                 <div>
                     <label asp-for="Password">Password<span style="color: red;">*</span></label><br />
-                    @*<input asp-for="Password" type="password" /><br />
-                    <span asp-validation-for="Password" class="text-danger"></span>*@
-                    @Html.TextBoxFor(x=>x.Password)
+                    <input asp-for="Password" type="password" /><br />
+                    @*<span asp-validation-for="Password" class="text-danger"></span>*@
+                    @*@Html.TextBoxFor(x=>x.Password)*@
                     <span style="color: red;">@Html.ValidationMessageFor(x => x.Password)</span>
                 </div>
                 @if(ViewBag.Mess == "1") {

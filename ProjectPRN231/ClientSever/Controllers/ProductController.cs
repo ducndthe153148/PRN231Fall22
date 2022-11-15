@@ -226,7 +226,7 @@ namespace ClientSever.Controllers
             }
         }
         [HttpGet]
-        public ActionResult DeleteProduct(int id)
+        public async Task<ActionResult> DeleteProduct(int id)
         {
             // action to delete product
             using (var client = new HttpClient())
@@ -235,9 +235,13 @@ namespace ClientSever.Controllers
 
                 //HTTP DELETE
                 var deleteTask = client.DeleteAsync("Products/delete/" + id.ToString());
+                var countOrderDelete = await client.GetAsync("Products/CountOrderDelete/" + id);
+
                 deleteTask.Wait();
 
                 var result = deleteTask.Result;
+                var countOrder = await countOrderDelete.Content.ReadAsStringAsync();
+
                 if (result.IsSuccessStatusCode)
                 {
                     TempData["MessSuccess"] = "1";
@@ -248,6 +252,9 @@ namespace ClientSever.Controllers
             }
             return RedirectToAction("ManageProduct", "Product");
         }
+
+        // change discontinue of product
+
 
         public async Task<IActionResult> ExportToExcel()
         {

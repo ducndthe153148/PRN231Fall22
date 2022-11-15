@@ -80,21 +80,24 @@ namespace ClientSever.Controllers
 
             return View();
         }
-
+        [HttpGet]
         public async Task<ActionResult> Category(int id)
         {
             IEnumerable<Product> products = null;
             IEnumerable<Category> categories = null;
+            Category category = null;
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri(_configuration["apiBaseAddress"]);
                 string urlUse = "Products/filterCategory/" + id;
                 var result = await client.GetAsync(urlUse);
                 var resultCat = await client.GetAsync("Categories/ListCategory");
+                var eachCategory = await client.GetAsync("Categories/GetById?id=" + id);
                 if (result.IsSuccessStatusCode)
                 {
                     products = await result.Content.ReadAsAsync<IList<Product>>();
                     categories = await resultCat.Content.ReadAsAsync<IList<Category>>();
+                    category = await eachCategory.Content.ReadAsAsync<Category>();
                 }
                 else
                 {
@@ -103,6 +106,46 @@ namespace ClientSever.Controllers
             }
             ViewData["products"] = products;
             ViewData["categories"] = categories;
+            ViewData["category"] = category;
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Category()
+        {
+            String prdName = Request.Form["prdName"];
+            int id = Convert.ToInt32(Request.Form["catId"]);
+            Category category = null;
+            IEnumerable<Product> products = null;
+            IEnumerable<Category> categories = null;
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(_configuration["apiBaseAddress"]);
+                var prdAdd = "";
+                if(prdName.Length != 0) {
+                    prdAdd = "&searchString=" + prdName;
+                }
+                string urlUse = "Products/SearchFilter?categoryId=" + id + prdAdd;
+                var result = await client.GetAsync(urlUse);
+                var resultCat = await client.GetAsync("Categories/ListCategory");
+                var eachCategory = await client.GetAsync("Categories/GetById?id=" + id);
+
+                if (result.IsSuccessStatusCode)
+                {
+                    products = await result.Content.ReadAsAsync<IList<Product>>();
+                    categories = await resultCat.Content.ReadAsAsync<IList<Category>>();
+                    category = await eachCategory.Content.ReadAsAsync<Category>();
+
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Server error try after some time.");
+                }
+            }
+            ViewData["products"] = products;
+            ViewData["categories"] = categories;
+            ViewData["category"] = category;
+            ViewBag.SearchName = prdName;
             return View();
         }
         public async Task<ActionResult> LeftNav()

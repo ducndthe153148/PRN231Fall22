@@ -257,6 +257,43 @@ namespace APIFinal.Controllers
 
         }
 
+        [HttpPut("[action]")]
+        public async Task<IActionResult> EditContinue(int id)
+        {
+            try
+            {
+                var edited = await _context.Products.SingleOrDefaultAsync(o => o.ProductId == id);
+                if (edited == null)
+                {
+                    return BadRequest();
+                }
+                edited.Discontinued = false;
+                await _context.SaveChangesAsync();
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return NoContent();
+            }
+        }
+
+        [HttpGet("[action]/{id}")]
+        public async Task<IActionResult> CountOrderDelete(int id)
+        {
+            try
+            {
+                var product = await _context.Products.SingleOrDefaultAsync(o => o.ProductId == id);
+                // count number of product id in orderdetail
+                var orderDetail = await _context.OrderDetails.Where(o => o.ProductId == id).ToListAsync();
+                return Ok(orderDetail.Count);
+            }
+            catch (Exception ex)
+            {
+                return NoContent();
+            }
+        }
+
+
         //[Authorize("1")]
         [HttpDelete("delete/{id}")]
         public async Task<IActionResult> Delete(int id)

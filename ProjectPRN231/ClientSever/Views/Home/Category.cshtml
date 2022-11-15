@@ -4,30 +4,60 @@
 @{
     var products = ViewData["products"] as IList<Product>;
     var categories = ViewData["categories"] as IList<Category>;
+    var category = ViewData["category"] as Category;
 }
 
 <div id="content-left">
     <ul>
         <li><a asp-controller="Home" asp-action="Index">Category</a></li>
         @foreach (var item in categories)
-        {   
+        {
             <li><a asp-controller="Home" asp-action="Category" asp-route-id=@item.CategoryId>@item.CategoryName</a></li>
         }
     </ul>
 </div>
 <div id="content-right">
-<div class="content-main">
-    <div class="path">@products[0].Category.CategoryName</b></div>
-    <div class="grid-container">
-        @foreach (var item in products)
-        {
-            <div class="productCat">
-                <a asp-controller="home" asp-action="DetailProduct" asp-route-id="@item.ProductId"><img src="/css/1.jpg" width="100%" /></a>
-                <div class="name"><a asp-controller="home" asp-action="DetailProduct" asp-route-id="@item.ProductId">@item.ProductName</a></div>
-                <div class="price">@item.UnitPrice $</div>
-                <div><a href="">Buy now</a></div>
-            </div>
-        }
+    @*<div style="display: flex; justify-content: end; margin-bottom: 20px; padding-right: 10px; padding-top: 20px;">
+    <form asp-controller="Home" asp-action="Category" method="post">
+    <input type="text" name="prdName" value=@ViewBag.SearchName />
+    <input type="hidden" name="catId" value=@category.CategoryId />
+    <input type="submit" style="margin-left: 20px;" value="Search"></input>
+    </form>
+    </div>*@
+
+    @*<div style="display: flex; justify-content: end; margin-bottom: 20px; padding-right: 10px; padding-top: 20px;">
+        <input type="text" id="myInput" placeholder="Search Product" />
+    </div>*@
+    <div class="content-main">
+        <div class="path">@category.CategoryName</b></div>
+        <div id="grid-container" class="grid-container">
+            @if (products.Count > 0)
+            {
+                @foreach (var item in products)
+                {
+                    <div id="productCat" class="productCat">
+                        <a asp-controller="home" asp-action="DetailProduct" asp-route-id="@item.ProductId"><img src="/css/1.jpg" width="100%" /></a>
+                        <div class="name"><a asp-controller="home" asp-action="DetailProduct" asp-route-id="@item.ProductId">@item.ProductName</a></div>
+                        <div class="price">@item.UnitPrice $</div>
+                        <div><a href="">Buy now</a></div>
+                    </div>
+                }
+            }
+            else
+            {
+                <h3>No Products to show</h3>
+            }
+        </div>
     </div>
 </div>
-</div>
+<script>
+    $(document).ready(function () {
+        $("#myInput").on("keyup", function () {
+            var value = $(this).val().toLowerCase().trim();
+            $("#grid-container #productCat").show().filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+
+</script>

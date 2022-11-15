@@ -35,6 +35,20 @@ namespace APIFinal.Controllers
                 return BadRequest(e);
             }
         }
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            try
+            {
+                var category = await _context.Categories.FirstOrDefaultAsync(x => x.CategoryId == id);
+                return Ok(category);
+            }
+            catch (Exception ex)
+            {
+                return NoContent();
+            }
+        }
+
         [HttpPost("[action]")]
         public async Task<IActionResult> Create(Category E)
         {
